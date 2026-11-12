@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gethsemane School of Ministry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* GSOM: the church site's type system (Bricolage + DM Sans) dressed in GSOM's own palette:
+   oxblood, ember, parchment and gold, taken from the school's existing site. */
+:root{
+  color-scheme:light;
+  --oxblood:#22362A;
+  --ember:#D2662A;
+  --parch:#EBE5D9;
+  --sand:#E3DCCD;
+  --gold:#D9E47A;
+  --night:#1F201C;
+  --paper:#F3EEE6;
+  --ink:#1F201C;
+  --muted:#76726A;
+  --line:#D8CFC0;
+  --white:#FBF9F5;
+  --f-display:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --f-body:"DM Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"DM Mono", ui-monospace, Menlo, monospace;
+  --ease:cubic-bezier(.22,.68,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:90;background:var(--oxblood)}
+h1,h2,h3{font-family:var(--f-display);font-weight:300;margin:0;line-height:1.02;letter-spacing:-.035em;text-wrap:balance}
+em{font-style:normal}
+p{margin:0}
+a{color:inherit}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--ember);outline-offset:4px;border-radius:4px}
+.wrap{max-width:1360px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:720px){.wrap{padding-left:max(40px,env(safe-area-inset-left,0px));padding-right:max(40px,env(safe-area-inset-right,0px))}}
+section{padding-block:clamp(90px,11vw,150px)}
+.label{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.title{font-size:clamp(2.4rem,5vw,4.2rem)}
+.title em{color:var(--ember)}
+.sub{color:var(--muted);font-size:1.1rem;max-width:34rem}
+.head{display:grid;gap:18px;margin-bottom:clamp(44px,6vw,72px)}
+
+/* Pill buttons */
+.pill{display:inline-flex;align-items:center;gap:14px;text-decoration:none;font-weight:500;font-size:.94rem;padding:7px 7px 7px 22px;border-radius:999px;border:1px solid transparent;cursor:pointer;background:none;transition:background .3s,color .3s}
+.pill .ar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;transition:transform .4s var(--ease)}
+.pill .ar svg{width:14px;height:14px}
+.pill:hover .ar{transform:rotate(-45deg)}
+.pill.ember{background:var(--ember);color:var(--white)}
+.pill.ember .ar{background:var(--white);color:var(--ember)}
+.pill.ember:hover{background:var(--oxblood)}
+.pill.gold{background:var(--gold);color:var(--night)}
+.pill.gold .ar{background:var(--night);color:var(--gold)}
+.pill.gold:hover{background:var(--white)}
+.pill.line{border-color:currentColor}
+.pill.line .ar{background:currentColor}
+.pill.line .ar svg{color:var(--paper)}
+
+/* ---------- Header ---------- */
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;transition:background .4s,box-shadow .4s;background:var(--oxblood);color:var(--white)}
+.site-header.scrolled{background:rgba(34,54,42,.92);backdrop-filter:blur(12px);box-shadow:0 10px 30px -20px rgba(0,0,0,.5)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;height:80px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{width:40px;height:auto}
+.nav-logo{width:auto!important;height:62px!important;filter:drop-shadow(0 6px 14px rgba(0,0,0,.25))}
+@media (max-width:620px){.nav-logo{height:52px!important}}
+.brand b{font-family:var(--f-display);font-weight:500;font-size:1.5rem;letter-spacing:-.02em;line-height:1}
+.brand small{display:block;font-family:var(--f-mono);font-weight:400;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;opacity:.65;margin-top:4px}
+.links{display:flex;gap:28px;margin-left:48px;margin-right:auto}
+.links a{text-decoration:none;font-size:.92rem;opacity:.82}
+.links a:hover{opacity:1;color:var(--gold)}
+.back{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+.back span{width:34px;height:34px;border-radius:50%;border:1px solid rgba(251,249,245,.35);display:grid;place-items:center;transition:transform .4s var(--ease)}
+.back:hover span{transform:translateX(-3px)}
+.back svg{width:13px;height:13px}
+.nav-right{display:flex;align-items:center;gap:22px}
+.nav .pill{padding:5px 5px 5px 18px;font-size:.86rem}
+.nav .pill .ar{width:30px;height:30px}
+@media (max-width:1000px){.links{display:none}}
+@media (max-width:620px){.back b{display:none}.nav .pill .t{display:none}.nav .pill{padding:5px}}
+
+
+/* ---------- About ---------- */
+.ark{text-align:center;max-width:58rem;margin:0 auto clamp(60px,8vw,100px)}
+.ark h2{font-size:clamp(2rem,4.2vw,3.6rem)}
+.ark h2 em{color:var(--ember)}
+.about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(36px,6vw,90px);align-items:center}
+.about-photo{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:6px}
+.about-photo img{width:100%;height:100%;object-fit:cover;object-position:30% 50%;transition:transform 1.4s var(--ease)}
+.about-photo:hover img{transform:scale(1.04)}
+.about-copy{display:grid;gap:22px;max-width:36rem}
+.about-copy p{color:var(--muted);font-size:1.08rem}
+.about-copy strong{color:var(--ink);font-weight:600}
+.mandate{padding:22px 24px;border-left:3px solid var(--ember);background:var(--parch);color:var(--ink)!important}
+.stats{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--line)}
+.stat{padding:22px 32px 4px 0;display:grid;gap:2px}
+.stat+.stat{padding-left:32px;border-left:1px solid var(--line)}
+.stat b{font-family:var(--f-display);font-weight:400;font-size:clamp(2.6rem,5vw,3.8rem);line-height:1;letter-spacing:-.04em;color:var(--oxblood);font-variant-numeric:tabular-nums}
+@media (max-width:860px){.about-grid{grid-template-columns:1fr}.about-photo{aspect-ratio:4/3}}
+
+/* ---------- Courses ---------- */
+.courses{background:var(--parch)}
+.courses .head{grid-template-columns:1fr auto;align-items:end}
+.courses .head>div{display:grid;gap:18px}
+.course-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.course{grid-column:span 2;background:var(--white);display:flex;flex-direction:column;text-align:left;border:0;padding:10px;cursor:pointer;overflow:hidden;border-radius:26px;position:relative;transform-style:preserve-3d;transition:transform .7s var(--ease),box-shadow .7s var(--ease)}
+.course::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(217,228,122,.22),transparent 45%);opacity:0;transition:opacity .4s}
+.course:hover::after{opacity:1}
+.course:nth-child(4),.course:nth-child(5){grid-column:span 3}
+.course:hover{transform:translateY(-8px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));box-shadow:0 44px 70px -42px rgba(34,54,42,.55)}
+.course .im{aspect-ratio:16/10;overflow:hidden;position:relative;border-radius:18px}
+.course .im img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.course .tag{position:absolute;left:12px;top:12px;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 11px;border-radius:999px;background:rgba(251,249,245,.9);color:var(--oxblood)}
+.course:hover .im img{transform:scale(1.05)}
+.course .body{padding:clamp(16px,2vw,24px) clamp(12px,1.6vw,20px) clamp(14px,1.6vw,18px);display:flex;flex-direction:column;gap:12px;flex:1}
+.course h3{font-size:clamp(1.7rem,2.4vw,2.2rem);color:var(--oxblood)}
+.course p{color:var(--muted)}
+.course .more{margin-top:auto;padding:9px 9px 9px 16px;align-self:flex-start;display:inline-flex;align-items:center;gap:10px;font-weight:500;color:var(--ember);border:1px solid rgba(210,102,42,.3);border-radius:999px;transition:background .3s,color .3s}
+.course:hover .more{background:var(--ember);color:var(--white)}
+.course .more svg{width:14px;height:14px;transition:transform .4s var(--ease)}
+.course:hover .more svg{transform:translateX(4px)}
+@media (max-width:980px){.course-grid{grid-template-columns:1fr 1fr}.course,.course:nth-child(4),.course:nth-child(5){grid-column:span 1}.course:nth-child(5){grid-column:1/-1}.courses .head{grid-template-columns:1fr}}
+@media (max-width:620px){.course-grid{grid-template-columns:1fr}.course:nth-child(n){grid-column:auto}}
+@media (max-width:620px) and (prefers-reduced-motion:no-preference){.course.reveal.pending{opacity:0;transform:translateX(var(--sx,60px)) rotate(var(--tilt,2deg)) scale(.92)}.course.reveal{transition:opacity .9s ease,transform 1.1s cubic-bezier(.34,1.4,.64,1)}.course:nth-child(odd){--sx:-70px}.course:nth-child(even){--sx:70px}}
+
+/* Course detail sheet */
+.sheet{position:fixed;inset:0;z-index:100;display:grid;justify-items:end;background:rgba(20,22,18,.55);backdrop-filter:blur(4px);opacity:0;transition:opacity .4s ease}
+.sheet.open{opacity:1}
+.sheet-panel{width:min(720px,100%);height:100%;overflow-y:auto;background:var(--paper);transform:translateX(40px);transition:transform .5s var(--ease);padding-bottom:max(40px,env(safe-area-inset-bottom,0px))}
+.sheet.open .sheet-panel{transform:none}
+.sheet-top{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:16px max(20px,env(safe-area-inset-right,0px)) 16px 24px;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.sheet-x{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--white);cursor:pointer;display:grid;place-items:center}
+.sheet-img{aspect-ratio:16/9;overflow:hidden}
+.sheet-img img{width:100%;height:100%;object-fit:cover}
+.sheet-body{padding:clamp(24px,4vw,44px);display:grid;gap:28px}
+.sheet-body h2{font-size:clamp(2.2rem,5vw,3.4rem);color:var(--oxblood)}
+.block{display:grid;gap:8px;padding-top:18px;border-top:1px solid var(--line)}
+.block p{color:var(--ink)}
+.block.problem{border-top-color:var(--ember)}
+.quote{font-family:var(--f-display);font-weight:300;font-size:clamp(1.5rem,3vw,2rem);line-height:1.2;letter-spacing:-.02em;color:var(--ember);padding:4px 0 4px 22px;border-left:3px solid var(--gold)}
+.aims{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:aim}
+.aims li{display:grid;grid-template-columns:40px 1fr;gap:8px;counter-increment:aim}
+.aims li::before{content:counter(aim,decimal-leading-zero);font-family:var(--f-mono);color:var(--ember);font-size:.85rem;padding-top:3px}
+
+/* ---------- Become a student ---------- */
+.become-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(36px,6vw,90px);align-items:center}
+.become h2{font-size:clamp(3.2rem,8vw,7rem);line-height:.9;letter-spacing:-.05em}
+.become h2 em{color:var(--ember)}
+.become-copy{display:grid;gap:26px}
+.become-copy p{color:var(--muted);font-size:1.12rem;max-width:30rem}
+.become-copy p b{color:var(--ink)}
+.become-photo{aspect-ratio:7/5;overflow:hidden;border-radius:6px}
+.become-photo img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.become-photo:hover img{transform:scale(1.04)}
+@media (max-width:860px){.become-grid{grid-template-columns:1fr}}
+
+/* ---------- Values ---------- */
+/* Training rhythm: what a GSOM student does beyond lectures */
+.train-sec{background:var(--parch)}
+.train-sec .title em{color:var(--ember)}
+.train-sec .sub{color:var(--muted);max-width:34rem}
+.train{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink)}
+.train li{padding:26px 24px 30px 0;display:grid;gap:10px;align-content:start;border-bottom:1px solid var(--line)}
+.train li+li{padding-left:24px;border-left:1px solid var(--line)}
+.train li:nth-child(4){padding-left:0;border-left:0}
+.train .n{font-family:var(--f-mono);font-size:.74rem;color:var(--ember)}
+.train h3{font-size:clamp(1.5rem,2.2vw,1.9rem);font-weight:300;letter-spacing:-.02em}
+.train p{color:var(--muted)}
+.train .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.train .tags span{font-size:.8rem;padding:3px 10px;border:1px solid var(--line);border-radius:999px;background:var(--white)}
+@media (max-width:900px){.train{grid-template-columns:1fr 1fr}.train li:nth-child(n){padding-left:0;border-left:0}.train li:nth-child(even){padding-left:24px;border-left:1px solid var(--line)}}
+@media (max-width:560px){.train{grid-template-columns:1fr}.train li:nth-child(n){padding-left:0;border-left:0}}
+.values-sec{background:var(--night);color:var(--white)}
+.values-sec .label{color:rgba(251,249,245,.55)}
+.values-sec .title em{color:var(--gold)}
+.values{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.value{grid-column:span 2;padding:clamp(24px,3vw,34px);background:rgba(251,249,245,.05);border:1px solid rgba(251,249,245,.1);display:grid;gap:18px;align-content:start;transition:background .4s,transform .6s var(--ease)}
+.value:nth-child(4),.value:nth-child(5){grid-column:span 3}
+.value:hover{background:rgba(217,228,122,.08);transform:translateY(-4px)}
+.value .top{display:flex;justify-content:space-between;align-items:center}
+.value h3{font-size:clamp(1.8rem,2.8vw,2.4rem)}
+.value .num{font-family:var(--f-mono);font-size:.74rem;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--night)}
+.value svg.ic{width:52px;height:52px;color:var(--gold)}
+.value p{color:rgba(251,249,245,.7)}
+@media (max-width:980px){.values{grid-template-columns:1fr 1fr}.value,.value:nth-child(4),.value:nth-child(5){grid-column:span 1}.value:nth-child(5){grid-column:1/-1}}
+@media (max-width:560px){.values{grid-template-columns:1fr}.value:nth-child(n){grid-column:auto}}
+
+/* ---------- Online & physical ---------- */
+.mode{padding-block:0;display:grid;grid-template-columns:1fr 1fr;background:var(--parch)}
+.mode-photo{min-height:clamp(380px,48vw,640px);overflow:hidden}
+.mode-photo img{width:100%;height:100%;object-fit:cover}
+.mode-copy{display:grid;gap:22px;align-content:center;padding:clamp(40px,7vw,100px) max(16px,env(safe-area-inset-right,0px)) clamp(40px,7vw,100px) clamp(24px,6vw,90px)}
+.mode-copy h2{font-size:clamp(2.6rem,5.4vw,4.6rem)}
+.mode-copy h2 em{color:var(--ember)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border-radius:999px;background:var(--white);border:1px solid var(--line)}
+.mode .pill{justify-self:start}
+.tc{font-size:.85rem;color:var(--muted)}
+@media (max-width:860px){.mode{grid-template-columns:1fr}.mode-copy{padding-left:max(16px,env(safe-area-inset-left,0px))}}
+
+/* ---------- Testimony + gallery ---------- */
+.testi{text-align:center}
+.testi .ring-badge{width:130px;height:130px;margin:0 auto 34px}
+.testi .ring-badge svg{width:100%;height:100%;overflow:visible}
+.testi blockquote{margin:0 auto;max-width:54rem;font-family:var(--f-display);font-weight:300;font-size:clamp(1.7rem,3.6vw,2.9rem);line-height:1.18;letter-spacing:-.025em}
+.testi cite{display:block;margin-top:26px;font-style:normal;font-family:var(--f-body);font-size:1.05rem;font-weight:600;letter-spacing:0}
+.testi cite span{display:block;font-family:var(--f-mono);font-weight:400;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.gallery{margin-top:clamp(60px,8vw,100px);overflow:hidden}
+.g-track{display:flex;gap:14px;width:max-content;align-items:center}
+.g-track figure{margin:0;width:clamp(200px,22vw,320px);flex:none;overflow:hidden;border-radius:4px}
+.g-track figure:nth-child(odd){aspect-ratio:4/5}
+.g-track figure:nth-child(even){aspect-ratio:1}
+.g-track img{width:100%;height:100%;object-fit:cover}
+.final{margin-top:clamp(50px,7vw,80px)}
+
+/* ---------- Footer ---------- */
+footer{background:radial-gradient(120% 120% at 15% 0%,#8CC152 0%,#6EA43F 40%,#4E8A2E 100%);color:var(--white);padding-block:clamp(70px,9vw,110px) 0;overflow:hidden}
+.foot-top{display:grid;grid-template-columns:1.3fr 1fr 1fr 1.2fr;gap:40px}
+.foot-brand{display:grid;gap:18px;align-content:start}
+.foot-brand .brand img{width:52px}
+.foot-brand p{color:rgba(251,249,245,.7);max-width:24rem}
+footer .label{color:rgba(251,249,245,.5);display:block;margin-bottom:14px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+footer a{text-decoration:none;color:rgba(251,249,245,.86)}
+footer a:hover{color:var(--gold)}
+footer li{color:rgba(251,249,245,.86)}
+.copy-btn{background:none;border:0;padding:0;cursor:pointer;color:rgba(251,249,245,.86);text-align:left}
+.copy-btn:hover{color:var(--gold)}
+.copy-btn small{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-left:8px;opacity:0;transition:opacity .3s}
+.copy-btn.done small{opacity:1}
+.foot-bottom{margin-top:clamp(50px,7vw,80px);padding-top:22px;border-top:1px solid rgba(251,249,245,.14);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:.9rem;color:rgba(251,249,245,.55)}
+.giant-clip{overflow:hidden;line-height:0;margin-top:clamp(30px,5vw,60px);padding-inline:max(12px,env(safe-area-inset-left,0px)) max(12px,env(safe-area-inset-right,0px))}
+.giant-svg{display:block;width:100%;height:auto;overflow:visible;transform:translateY(var(--gy,30%));filter:blur(var(--gb,10px));opacity:var(--go,0);transition:transform 1.8s var(--ease),filter 1.6s ease,opacity 1.2s ease}
+.giant-svg text{font-family:var(--f-display);font-weight:500;font-variation-settings:"wdth" 88;letter-spacing:-.02em}
+footer.lit .giant-svg{--gy:0%;--gb:0px;--go:1}
+@media (max-width:900px){.foot-top{grid-template-columns:1fr 1fr}.foot-brand{grid-column:1/-1}}
+@media (max-width:480px){.foot-top{grid-template-columns:1fr}}
+
+
+/* ---------- Motion ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .hero h1 .ln>span{animation:lineup 1.2s var(--ease) both}
+  .hero h1 .ln:nth-child(2)>span{animation-delay:.1s}
+  .hero h1 .ln:nth-child(3)>span{animation-delay:.2s}
+  .hero h1 .ln>span{animation:bounceup 1.1s cubic-bezier(.34,1.56,.64,1) both}
+  .hero h1 .ln:nth-child(2)>span{animation-delay:.1s}
+  .hero h1 .ln:nth-child(3)>span{animation-delay:.2s}
+  .spin-badge svg{animation:spin 22s linear infinite}
+  .spin-badge svg,.testi .ring-badge svg{animation:spin 22s linear infinite}
+  .wave i{animation:pulse 2s ease-out infinite}
+  .g-track{animation:slide 45s linear infinite}
+  .gallery:hover .g-track{animation-play-state:paused}
+  .reveal{transition:opacity 1.1s var(--ease),transform 1.1s var(--ease);transition-delay:var(--d,0s)}
+  .reveal.pending{opacity:.06;transform:translateY(30px)}
+  .course.reveal{transition:opacity 1s var(--ease),transform 1.2s var(--ease),box-shadow .7s var(--ease);transition-delay:var(--d,0s)}
+  .course.reveal.pending{opacity:0;transform:translateY(70px) rotate(var(--tilt,2deg)) scale(.94)}
+  .course .im img{animation:none}
+}
+@keyframes lineup{from{transform:translateY(105%)}to{transform:none}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes arch{from{clip-path:inset(100% 0 0 0 round 240px 240px 22px 22px)}to{clip-path:inset(0 0 0 0 round 240px 240px 22px 22px)}}
+@keyframes wipe{from{clip-path:inset(0 100% 0 0 round 22px)}to{clip-path:inset(0 0 0 0 round 22px)}}
+@keyframes zoomout{from{scale:1.25}to{scale:1}}
+@keyframes fade{from{opacity:.001}to{opacity:1}}
+@keyframes pop{from{opacity:.001;scale:.6}to{opacity:1;scale:1}}
+@keyframes rise{from{opacity:.001;transform:translateY(30px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(217,228,122,.6)}100%{box-shadow:0 0 0 9px rgba(217,228,122,0)}}
+@keyframes bounceup{0%{transform:translateY(110%) rotate(4deg)}100%{transform:none}}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.giant-svg{--gy:0%;--gb:0px;--go:1}}
+
+/* ---------- Countdown ---------- */
+
+/* ---------- GSOM hero v3: matches the home hero. Full-bleed photo, headline bottom-left, lede + buttons row, countdown strip ---------- */
+.site-header:not(.scrolled){background:linear-gradient(180deg,rgba(10,12,9,.55),rgba(10,12,9,0));box-shadow:none}
+.site-header.scrolled{background:rgba(20,26,20,.62);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid rgba(251,249,245,.1)}
+body::before{background:#0E100D}
+section.gh{padding:0!important}
+.gh{position:relative;min-height:100vh;min-height:100svh;margin-top:-80px;display:flex;flex-direction:column;justify-content:flex-end;color:#FBF9F5;isolation:isolate;overflow:hidden;background:#0E100D}
+.gh>.wrap{width:100%}
+.gh-bg{position:absolute;inset:0;z-index:-2}
+.gh-bg picture,.gh-bg img{display:block;width:100%;height:100%}
+.gh-bg img{object-fit:cover;object-position:50% 34%}
+.gh::before{content:"";position:absolute;inset:0;z-index:-1;background:
+  linear-gradient(90deg,rgba(12,14,10,.88) 0%,rgba(12,14,10,.55) 42%,rgba(12,14,10,.1) 75%),
+  linear-gradient(0deg,rgba(12,14,10,.95) 0%,rgba(12,14,10,.82) 14%,rgba(12,14,10,.4) 32%,rgba(12,14,10,0) 55%),
+  linear-gradient(180deg,rgba(12,14,10,.5) 0%,rgba(12,14,10,0) 20%)}
+.gh-in{display:grid;gap:22px;justify-items:start;padding-top:130px;padding-bottom:clamp(32px,5vh,56px)}
+.gh-tag{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(251,249,245,.85)}
+.gh-tag i{width:34px;height:1px;background:var(--gold)}
+.gh h1{font-weight:700;font-size:clamp(3.2rem,min(7.6vw,14vh),8rem);line-height:.92;letter-spacing:-.05em}
+.gh h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.gh h1 .ln>span{display:inline-block}
+.gh h1 em{color:var(--gold);font-style:normal}
+.gh-row{display:flex;flex-wrap:wrap;align-items:center;gap:20px 40px;margin-top:8px}
+.gh-lede{margin:0;padding-left:18px;border-left:2px solid var(--gold);max-width:26rem;font-size:clamp(1.05rem,1.4vw,1.2rem);line-height:1.6;color:rgba(251,249,245,.86)}
+.gh-actions{display:flex;flex-wrap:wrap;gap:12px}
+.pill.ghostw{border:1px solid rgba(251,249,245,.45);color:#FBF9F5;background:transparent}
+.pill.ghostw .ar{background:rgba(251,249,245,.15);color:#FBF9F5}
+.pill.ghostw:hover{background:#FBF9F5;color:var(--night)}
+.pill.ghostw:hover .ar{background:var(--night);color:#FBF9F5}
+
+/* Countdown strip: sits on the hero's bottom edge like the home page's service-times line */
+.cd{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:20px clamp(24px,4vw,64px);padding-block:22px 28px;position:relative}
+.cd::before{content:"";position:absolute;top:0;left:16px;right:16px;height:1px;background:rgba(251,249,245,.22)}
+@media (min-width:720px){.cd::before{left:40px;right:40px}}
+.cd-l{display:grid;gap:6px}
+.cd-live{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.cd-live i{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.cd-date{font-size:.95rem;color:rgba(251,249,245,.72)}
+.cd-grid{display:flex;align-items:center;justify-content:center;gap:clamp(14px,2.4vw,40px)}
+.cd-u{display:flex;align-items:flex-end;gap:8px}
+.cd-u b{position:relative;display:block;height:1.04em;overflow:hidden;font-family:var(--f-display);font-weight:600;font-size:clamp(2.2rem,3.6vw,3.4rem);line-height:1.04;letter-spacing:-.04em;font-variant-numeric:tabular-nums;min-width:1.25em;text-align:right}
+.cd-u b span{display:block}
+.cd-u b span.in,.cd-u b span.out{position:absolute;left:0;right:0;top:0}
+.cd-u small{padding-bottom:.7em;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(251,249,245,.6)}
+.cd-u:first-child b{color:var(--gold)}
+.cd-sep{width:1px;height:38px;background:rgba(251,249,245,.22)}
+.cd-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.cd-cal{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:.9rem;font-weight:500;padding:10px 16px;border-radius:999px;border:1px solid rgba(251,249,245,.35);color:#FBF9F5;transition:background .3s,color .3s,border-color .3s}
+.cd-cal svg{width:15px;height:15px}
+.cd-cal:hover{background:var(--gold);border-color:var(--gold);color:var(--night)}
+
+@media (prefers-reduced-motion:no-preference){
+  .gh-bg img{animation:ghzoom 18s ease-out both}
+  .gh h1 .ln>span{animation:ghup 1.1s cubic-bezier(.22,1.2,.36,1) both}
+  .gh h1 .ln:nth-child(2)>span{animation-delay:.12s}.gh h1 .ln:nth-child(3)>span{animation-delay:.24s}
+  .gh-tag,.gh-lede,.gh-actions,.cd{animation:ghrise 1s cubic-bezier(.22,.68,.2,1) both}
+  .gh-tag{animation-delay:.05s}.gh-lede{animation-delay:.45s}.gh-actions{animation-delay:.58s}.cd{animation-delay:.75s}
+  .cd-live i{animation:ghping 1.8s ease-out infinite}
+  .cd-u b span.in{animation:cdin .6s cubic-bezier(.22,1.1,.36,1) both}
+  .cd-u b span.out{animation:cdout .6s cubic-bezier(.6,0,.4,1) both}
+}
+@keyframes ghzoom{from{transform:scale(1.16)}to{transform:scale(1.02)}}
+@keyframes ghup{from{transform:translateY(110%) rotate(3deg)}to{transform:none}}
+@keyframes ghrise{from{opacity:.001;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes ghping{0%{box-shadow:0 0 0 0 rgba(217,228,122,.6)}100%{box-shadow:0 0 0 10px rgba(217,228,122,0)}}
+@keyframes cdin{from{transform:translateY(100%);opacity:0;filter:blur(4px)}to{transform:none;opacity:1;filter:none}}
+@keyframes cdout{from{transform:none;opacity:1}to{transform:translateY(-100%);opacity:0;filter:blur(4px)}}
+@media (max-width:1100px){.cd{grid-template-columns:1fr auto}.cd-grid{grid-column:1/-1;grid-row:2;justify-content:space-between}}
+@media (max-width:760px){
+  .gh::before{background:linear-gradient(0deg,rgba(12,14,10,.97) 0%,rgba(12,14,10,.88) 22%,rgba(12,14,10,.6) 50%,rgba(12,14,10,.25) 100%)}
+  .gh-bg img{object-position:46% 30%}
+  .gh h1{font-size:clamp(2.8rem,13vw,4.2rem)}
+  .gh-in{padding-top:120px;padding-bottom:26px}
+  .gh-row{gap:18px}
+  .cd{padding-block:18px 24px;gap:16px}
+  .cd-grid{gap:0}
+  .cd-u{flex-direction:column;align-items:center;gap:4px}
+  .cd-u small{padding-bottom:0}
+  .cd-u b{font-size:clamp(1.9rem,9vw,2.4rem);text-align:center}
+  .cd-sep{height:30px}
+  .cd-date{font-size:.85rem}
+  .cd-cal{padding:8px 12px;font-size:.82rem}
+}
+</style>
+</head>
+<body>
+<style id="pt-style">
+.pt-curtain{position:fixed;inset:0;z-index:300;display:grid;place-items:center;background:#22362A;transform:translateY(0);transition:transform .7s cubic-bezier(.76,0,.24,1);pointer-events:none}
+.pt-curtain img{width:64px;height:auto;opacity:.95;transition:opacity .3s ease,transform .7s cubic-bezier(.76,0,.24,1)}
+html.pt-ready .pt-curtain{transform:translateY(-100%)}
+html.pt-ready .pt-curtain img{opacity:0;transform:translateY(-30px)}
+html.pt-leave .pt-curtain{transition:transform .55s cubic-bezier(.76,0,.24,1);transform:translateY(0)!important;pointer-events:auto}
+html.pt-leave .pt-curtain img{opacity:.95!important;transform:none!important}
+html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
+@media (prefers-reduced-motion:reduce){.pt-curtain{display:none}}
+@media (prefers-reduced-motion:no-preference){
+  html.pt-ready main>section:first-of-type,html.pt-ready main>div:first-child{animation:ptrise .9s cubic-bezier(.22,.68,.2,1) .15s both}
+}
+@keyframes ptrise{from{opacity:.001;transform:translateY(28px)}to{opacity:1;transform:none}}
+</style>
+<div class="pt-curtain" aria-hidden="true"><img src="img/gsom/logo.png" alt=""></div>
+<script>
+/* Page transitions + always land at the top of a new page (no visible scrolling) */
+(function(){
+  var d=document.documentElement;
+  try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }catch(e){}
+  function land(){ var prev=d.style.scrollBehavior; d.style.scrollBehavior='auto';
+    var h=location.hash&&location.hash!=='#top'?document.getElementById(location.hash.slice(1)):null;
+    if(h){ h.scrollIntoView({behavior:'auto'}); } else { window.scrollTo(0,0); }
+    d.style.scrollBehavior=prev; }
+  land();
+  document.addEventListener('DOMContentLoaded',land);
+  function reveal(){ land(); requestAnimationFrame(function(){ d.classList.remove('pt-leave','pt-start'); d.classList.add('pt-ready'); }); }
+  if(document.readyState==='complete') reveal(); else window.addEventListener('load',function(){ reveal(); setTimeout(land,60); });
+  setTimeout(reveal,2500);
+  window.addEventListener('pageshow',function(e){ if(e.persisted){ d.classList.remove('pt-leave'); reveal(); } });
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href]'); if(!a||e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.button) return;
+    if(a.target&&a.target!=='_self') return;
+    var href=a.getAttribute('href'); if(!href||href.charAt(0)==='#'||/^(mailto|tel|javascript):/i.test(href)) return;
+    var u; try{ u=new URL(href,location.href); }catch(err){ return; }
+    if(u.origin!==location.origin) return;
+    if(u.pathname===location.pathname){ return; }
+    if(reduce) return;
+    e.preventDefault(); d.classList.remove('pt-ready'); d.classList.add('pt-start');
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ d.classList.remove('pt-start'); d.classList.add('pt-leave'); }); });
+    setTimeout(function(){ location.href=u.href; },560);
+  },true);
+})();
+</script>
+
+
+<script>
+/* Always open GSOM at the top (ignore any remembered scroll position) */
+try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }catch(e){}
+(function(){ function top(){ if(!location.hash||location.hash==='#top') window.scrollTo(0,0); }
+  top(); document.addEventListener('DOMContentLoaded',top); window.addEventListener('load',function(){ top(); setTimeout(top,60); }); window.addEventListener('pageshow',top); })();
+</script>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="arrow-l" viewBox="0 0 16 16"><path d="M13 8H3M7 4 3 8l4 4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ext" viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></symbol>
+</defs></svg>
+
+<!-- Application forms used on the existing GSOM site -->
+<header class="site-header" id="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="GSOM, Gethsemane School of Ministry, home"><img class="nav-logo" src="img/gsom/logo.png" alt="GSOM, Gethsemane School of Ministry" width="220" height="240"></a>
+    <nav class="links" aria-label="Sections"><a href="#about">About</a><a href="#courses">Courses</a><a href="#training">Training</a><a href="#values">Values</a><a href="#testimony">Testimony</a><a href="#contact">Contact</a></nav>
+    <div class="nav-right">
+      <a class="pill gold" href="register.html"><span class="t">Apply for Wave 6</span><span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="gh" id="ghero" aria-label="Welcome">
+  <div class="gh-bg" aria-hidden="true"><picture><source media="(max-width:700px)" srcset="img/gsom/graduates-m.jpg"><img src="img/gsom/graduates.jpg" alt="" fetchpriority="high"></picture></div>
+  <div class="wrap gh-in">
+    <span class="gh-tag"><i aria-hidden="true"></i>Wave 6 · Now enrolling</span>
+    <h1><span class="ln"><span>Welcome to</span></span><span class="ln"><span>Gethsemane</span></span><span class="ln"><span><em>School of Ministry</em></span></span></h1>
+    <div class="gh-row">
+      <p class="gh-lede">An 8-month discipleship training program equipping a younger generation with the ancient wisdom of the Kingdom.</p>
+      <div class="gh-actions">
+        <a class="pill gold" href="register.html">Apply for Wave 6<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
+        <a class="pill ghostw" href="#courses">See the courses<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap cd" id="cd" role="group" aria-label="Countdown to Wave 6">
+    <div class="cd-l"><span class="cd-live"><i aria-hidden="true"></i><span>Wave 6 begins in</span></span><span class="cd-date">Sunday, 31 January 2027</span></div>
+    <div class="cd-grid">
+      <div class="cd-u"><b id="cd-d"><span>--</span></b><small>Days</small></div><span class="cd-sep" aria-hidden="true"></span>
+      <div class="cd-u"><b id="cd-h"><span>--</span></b><small>Hours</small></div><span class="cd-sep" aria-hidden="true"></span>
+      <div class="cd-u"><b id="cd-m"><span>--</span></b><small>Mins</small></div><span class="cd-sep" aria-hidden="true"></span>
+      <div class="cd-u"><b id="cd-s"><span>--</span></b><small>Secs</small></div>
+    </div>
+    <a href="#" id="cd-cal" class="cd-cal"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>Add to calendar</a>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="ark">
+      <span class="label" style="display:block;margin-bottom:20px">About GSOM</span>
+      <h2>The Ark is open, equipping a younger generation with the <em>ancient wisdom</em> of the Kingdom.</h2>
+    </div>
+    <div class="about-grid">
+      <figure class="about-photo" style="margin:0"><img src="img/gsom/about.jpg" alt="Apostle David Dauda ministering" loading="lazy"></figure>
+      <div class="about-copy">
+        <p>We are a <strong>“Cave of Adullam”</strong>: a training ground where the distressed and those searching for purpose are transformed into mighty men and women. We exist to bridge the gap, pouring the wisdom of the fathers into the strength of the sons and daughters.</p>
+        <p class="mandate"><strong>Our mandate:</strong> to raise a people who are <strong>chaste in hope</strong>, <strong>enforcing the Kingdom in faith</strong>, and <strong>winning the world in love</strong>.</p>
+        <div class="stats">
+          <div class="stat"><b data-count="80">80+</b><span class="label">Students discipled &amp; transformed</span></div>
+        </div>
+        <a class="pill ember" href="register.html" style="justify-self:start">Apply now<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="courses" id="courses">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <span class="label">Courses offered</span>
+        <h2 class="title">Our key <em>courses</em></h2>
+      </div>
+      <p class="sub">Five courses over eight months. Tap a course to read what it covers.</p>
+    </div>
+    <div class="course-grid" id="course-grid">
+      <button class="course" data-c="pneumatology"><span class="im"><span class="tag">Spirit</span><img src="img/gsom/c-pneuma.jpg" alt="" loading="lazy"></span><span class="body"><h3>Pneumatology</h3><p>Moving from theology to intimacy with the Holy Spirit.</p><span class="more">Learn more<svg aria-hidden="true"><use href="#arrow"/></svg></span></span></button>
+      <button class="course" data-c="leadership"><span class="im"><span class="tag">Character</span><img src="img/gsom/c-lead.jpg" alt="" loading="lazy"></span><span class="body"><h3>Leadership</h3><p>The ability to harness human and material resources to achieve a common goal, starting with the ability to lead yourself.</p><span class="more">Learn more<svg aria-hidden="true"><use href="#arrow"/></svg></span></span></button>
+      <button class="course" data-c="ministry"><span class="im"><span class="tag">Service</span><img src="img/gsom/c-ministry.jpg" alt="" loading="lazy"></span><span class="body"><h3>Ministry</h3><p>Ministry is simply Kingdom service: scriptural contributions motivated by love for Jesus, not titles or lordship.</p><span class="more">Learn more<svg aria-hidden="true"><use href="#arrow"/></svg></span></span></button>
+      <button class="course" data-c="self"><span class="im"><span class="tag">Identity</span><img src="img/gsom/c-self.jpg" alt="" loading="lazy"></span><span class="body"><h3>Self Discovery &amp; Personal Transformation</h3><p>You cannot live correctly if you cannot identify yourself.</p><span class="more">Learn more<svg aria-hidden="true"><use href="#arrow"/></svg></span></span></button>
+      <button class="course" data-c="finance"><span class="im"><span class="tag">Dominion</span><img src="img/gsom/c-finance.jpg" alt="" loading="lazy"></span><span class="body"><h3>Finance</h3><p>Financial dominion is the ability to totally conquer lack and poverty.</p><span class="more">Learn more<svg aria-hidden="true"><use href="#arrow"/></svg></span></span></button>
+    </div>
+  </div>
+</section>
+
+<section class="become">
+  <div class="wrap become-grid">
+    <div class="become-copy">
+      <span class="label">Enroll for Wave 6</span>
+      <h2>Become a <em>student</em></h2>
+      <p>The greatest need of a believer in Christ is <b>transformation</b>. By the help of God, we can give that to you.</p>
+      <a class="pill ember" href="register.html" style="justify-self:start">Enroll for Wave 6<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
+    </div>
+    <figure class="become-photo" style="margin:0"><img src="img/gsom/volunteer.jpg" alt="A graduating GSOM class together" loading="lazy"></figure>
+  </div>
+</section>
+
+<section class="values-sec" id="values">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">What shapes us</span>
+      <h2 class="title">Our core <em>values</em></h2>
+    </div>
+    <div class="values">
+      <article class="value"><div class="top"><h3>Purity</h3><span class="num">01</span></div><svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 5c6 9 10 15 10 20a10 10 0 0 1-20 0c0-5 4-11 10-20z"/><ellipse cx="24" cy="41" rx="15" ry="4"/><path d="M19 27a5 5 0 0 0 5 5"/></svg><p>Living unspotted in a stained world.</p></article>
+      <article class="value"><div class="top"><h3>Power</h3><span class="num">02</span></div><svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 4v18M17 10h14"/><path d="M10 44V30c0-4 3-7 6-9l4-2v12"/><path d="M38 44V30c0-4-3-7-6-9l-4-2v12"/></svg><p>Demonstrating the Spirit, not just talking about Him.</p></article>
+      <article class="value"><div class="top"><h3>Character</h3><span class="num">03</span></div><svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 42S6 31 6 18a9 9 0 0 1 18-3 9 9 0 0 1 18 3c0 13-18 24-18 24z"/><path d="M14 24l6 5 8-8 6 6"/></svg><p>The foundation that sustains the anointing.</p></article>
+      <article class="value"><div class="top"><h3>Love</h3><span class="num">04</span></div><svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 34h8l8 5h10l12-8c2-2 0-5-3-4l-9 4"/><path d="M20 34h8a3 3 0 0 0 0-6h-8"/><path d="M30 20s-8-5-8-10a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 5-8 10-8 10z"/></svg><p>The motive behind every mission.</p></article>
+      <article class="value"><div class="top"><h3>Excellence</h3><span class="num">05</span></div><svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="18" r="12"/><path d="M24 11l2 5h5l-4 3 2 5-5-3-5 3 2-5-4-3h5z"/><path d="M17 28l-4 14 6-3 4 5M31 28l4 14-6-3-4 5"/></svg><p>Doing God’s work God’s way.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="train-sec" id="training">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Beyond the classroom</span>
+      <h2 class="title">How GSOM <em>trains</em> you</h2>
+      <p class="sub">Eight months of the Word, prayer and practice. Students learn in class, then carry it out to schools, villages, prisons and hospitals alongside our Mission &amp; Welfare arm.</p>
+    </div>
+    <ol class="train">
+      <li><span class="n">01</span><h3>Lectures</h3><p>Teaching across the five courses, online and at Fed Poly, Bida.</p></li>
+      <li><span class="n">02</span><h3>Prayer</h3><p>21 days of prayer, special prayer drills and prayer stretches through the program.</p></li>
+      <li><span class="n">03</span><h3>Field trips</h3><p>Ministry out in the field with our outreach teams.</p><div class="tags"><span>Secondary schools</span><span>Prayer walk</span><span>Evangelism &amp; soul winning</span><span>Village outreach</span><span>Prison outreach</span><span>Hospital healing campaign</span></div></li>
+      <li><span class="n">04</span><h3>Preaching practice</h3><p>Practice and practicum, so you learn to minister by ministering.</p></li>
+      <li><span class="n">05</span><h3>Exams</h3><p>Examinations to confirm what has been learned.</p></li>
+      <li><span class="n">06</span><h3>Graduation</h3><p>The program closes with a graduation and a dinner to celebrate the wave.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="mode" aria-label="Class format">
+  <div class="mode-photo"><img src="img/gsom/g5.jpg" alt="GSOM students rejoicing together" loading="lazy"></div>
+  <div class="mode-copy">
+    <span class="label">Classes hold both</span>
+    <h2>Online &amp; <em>physical</em></h2>
+    <div class="chips"><span>8 months</span><span>Discipleship training</span><span>Fed Poly, Bida</span></div>
+    <a class="pill ember" href="register.html">Enroll for Wave 6<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
+    <p class="tc">Terms and conditions apply.</p>
+  </div>
+</section>
+
+<section class="testi" id="testimony">
+  <div class="wrap">
+    <div class="ring-badge" aria-hidden="true">
+      <svg viewBox="0 0 120 120"><defs><path id="circ2" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs><text font-family="DM Mono, monospace" font-size="9.4" letter-spacing="2.4" fill="#D2662A"><textPath href="#circ2">TESTIMONIES · TESTIMONIES · TESTIMONIES ·</textPath></text><g fill="#22362A"><circle cx="54" cy="54" r="5"/><circle cx="66" cy="54" r="5"/><circle cx="54" cy="66" r="5"/><circle cx="66" cy="66" r="5"/></g></svg>
+    </div>
+    <blockquote>“Obviously, I’m not the same again as I was earlier this year. My prayer life has been ramped up, and I’ve got a rich understanding of God’s Word. I really thank God for this opportunity.”
+      <cite>Asimana Onyeka<span>Class rep, Wave 5</span></cite>
+    </blockquote>
+  </div>
+  <div class="gallery" aria-label="Moments from GSOM">
+    <div class="g-track" id="g-track">
+      <figure><img src="img/gsom/g1.jpg" alt="Two GSOM graduates" loading="lazy"></figure>
+      <figure><img src="img/gsom/g2.jpg" alt="Students ministering in prayer" loading="lazy"></figure>
+      <figure><img src="img/gsom/g3.jpg" alt="Students during a service" loading="lazy"></figure>
+      <figure><img src="img/gsom/g4.jpg" alt="A graduate receiving a certificate" loading="lazy"></figure>
+      <figure><img src="img/gsom/g5.jpg" alt="Students rejoicing" loading="lazy"></figure>
+      <figure><img src="img/gsom/g6.jpg" alt="GSOM students outdoors" loading="lazy"></figure>
+    </div>
+  </div>
+  <div class="wrap final"><a class="pill ember" href="register.html">Enroll for Wave 6<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a></div>
+</section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a class="brand" href="#top"><img src="img/gsom/logo2.png" alt="" width="220" height="240"><span><b>GSOM</b><small>Gethsemane School of Ministry</small></span></a>
+        <p>To raise a people who, in hope of eternal life, are chaste; in faith, enforcing the Kingdom; and in love, winning the world.</p>
+      </div>
+      <div><span class="label">Quick links</span><ul><li><a href="#top">Home</a></li><li><a href="#courses">Our courses</a></li><li><a href="#values">Core values</a></li><li><a href="index.html">Gethsemane Kingdom Network</a></li></ul></div>
+      <div><span class="label">Our address</span><ul><li>Fed Poly,<br>Bida, Niger State,<br>Nigeria</li></ul></div>
+      <div><span class="label">Contact</span><ul>
+        <li><button class="copy-btn" data-copy="gsom.gkni@gmail.com">gsom.gkni@gmail.com<small>Copied</small></button></li>
+        <li><button class="copy-btn" data-copy="+2347031051140">+234 703 105 1140<small>Copied</small></button></li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 GSOM · A training arm of Gethsemane Kingdom Network Int’l</span><a href="index.html">← Back to Gethsemane</a></div>
+  </div>
+  <div class="giant-clip">
+    <svg class="giant-svg" viewBox="0 30 1000 300" preserveAspectRatio="xMidYMin meet" role="img" aria-label="GSOM">
+      <defs>
+        <linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9E47A" stop-opacity=".16"/><stop offset="1" stop-color="#D2662A" stop-opacity=".14"/></linearGradient>
+        <linearGradient id="gs" gradientUnits="userSpaceOnUse" x1="-500" y1="0" x2="-100" y2="0">
+          <stop offset="0" stop-color="#F6F9E6" stop-opacity="0"/><stop offset=".5" stop-color="#F6F9E6" stop-opacity=".22"/><stop offset="1" stop-color="#F6F9E6" stop-opacity="0"/>
+          <animate class="sheen-anim" attributeName="x1" values="-500;1100;1100" keyTimes="0;.6;1" dur="7s" begin="2s" repeatCount="indefinite"/>
+          <animate class="sheen-anim" attributeName="x2" values="-100;1500;1500" keyTimes="0;.6;1" dur="7s" begin="2s" repeatCount="indefinite"/>
+        </linearGradient>
+      </defs>
+      <text x="500" y="370" text-anchor="middle" font-size="430" textLength="990" lengthAdjust="spacingAndGlyphs" fill="url(#gb)">GSOM</text>
+      <text x="500" y="370" text-anchor="middle" font-size="430" textLength="990" lengthAdjust="spacingAndGlyphs" fill="url(#gs)" aria-hidden="true">GSOM</text>
+    </svg>
+  </div>
+</footer>
+
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+  <div class="sheet-panel">
+    <div class="sheet-top"><span class="label">GSOM course</span><button class="sheet-x" id="sheet-x" aria-label="Close course details"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 1l10 10M11 1 1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button></div>
+    <div class="sheet-img"><img id="sheet-img" src="img/gsom/c-pneuma.jpg" alt=""></div>
+    <div class="sheet-body" id="sheet-body"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var APPLY='register.html';
+
+  /* Course content from the GSOM site */
+  var COURSES={
+    pneumatology:{t:'Pneumatology',img:'c-pneuma',
+      intro:'This is not just the study of a doctrine, but an introduction to a Person. We move beyond theology to experience the visible expression of the glory of God: the Holy Spirit.',
+      challenge:'It is possible to have the Holy Ghost and still be powerless. The presence is a potential for power, but it requires understanding to turn it into operative power.',
+      quote:'The Holy Spirit is to us what the tree of life would have done to Adam.',
+      problem:'Dryness and powerlessness. Trying to do the work of God without the anointing, leading to struggle and ineffective ministry.',
+      solution:'Intimacy and impartation. You will learn to hear the voice of God, understand the seven-fold manifestation of the Spirit, and walk in the anointing that makes you a sign and a wonder.',
+      aims:['To expose the church to active Christian living.','To understand the scriptural basis for relating with the Holy Spirit.','To know the person of the Holy Spirit personally and how to be led by Him.','To show the purpose of Pentecost and how to maximise the benefits therein.','To understand the anointing and how to walk effectively in it.']},
+    leadership:{t:'Leadership',img:'c-lead',
+      intro:'Everything rises and falls on leadership. This course explores the ability to harness human and material resources to achieve a common goal, starting with the ability to lead yourself.',
+      challenge:'Many occupy positions but lack influence. They try to lead by force and cruelty because they lack the security and character to lead by inspiration.',
+      quote:'If you are not successful as a follower, then you are not qualified for leadership.',
+      problem:'Insecurity and lack of character. When a leader lacks self-esteem and moral values, they inevitably destroy the organisation and the people they lead.',
+      solution:'Servant leadership. We equip you to move from “positional leadership” to “leadership by reproduction,” where you influence people through character, competence, and results.'},
+    ministry:{t:'Ministry',img:'c-ministry',
+      intro:'Ministry is simply Kingdom service. It is not about titles or lordship, but about scriptural contributions motivated by love for Jesus and a desire to see His Kingdom come.',
+      challenge:'Many struggle to find their place because they view ministry as an ambition rather than a call. They run without being sent, leading to frustration and error. Some mistake ministry to mean serving in the sphere of religion, whereas it is all about doing what God wants you to do.',
+      quote:'Greatness in the Kingdom is measured by service, not by the acquisition or possession of things.',
+      problem:'Misplaced priorities. Focusing on dominion over people rather than service to people, and operating without the necessary “sending” and empowerment.',
+      solution:'Accurate alignment. We help you identify your specific calling within and outside the five-fold ministry (apostle, prophet, evangelist, pastor, teacher) and equip you with the ethics and homiletics required to represent Christ effectively.'},
+    self:{t:'Self Discovery & Personal Transformation',img:'c-self',
+      intro:'You cannot live correctly if you cannot identify yourself. This course is a journey to understand your unique design, composition, and value as crafted by God.',
+      challenge:'Many believers live in frustration and unhealthy competition because they are trying to be someone else rather than developing who God created them to be.',
+      quote:'Your similarities create your comfort, but it is your uniqueness that creates your reward.',
+      problem:'Identity crisis. The failure to understand one’s worth leads to frustration, jealousy, falsehood, and selling oneself cheap.',
+      solution:'Transformation through revelation. We guide you to discover your specific advantage, refine your gifts, and shatter inferiority complexes so you can attract the success that is looking for you.'},
+    finance:{t:'Finance',img:'c-finance',
+      intro:'Financial dominion is the ability to totally conquer lack and poverty. We explore the spiritual and physical laws that guarantee wealth and abundance in the Kingdom.',
+      challenge:'Poverty is not necessarily a lack of money; it is the result of an unproductive mind that does not understand God’s financial system.',
+      quote:'Money is neither a mystery nor a miracle, but the reward for solving problems.',
+      problem:'The poverty mindset. Believing that wealth is carnal or relying solely on luck, while lacking the financial intelligence to manage and multiply resources.',
+      solution:'Kingdom economic strategy. You will master the “trinity of wealth” (high-income skills, business, and investment) and learn to combine spiritual laws such as tithing and honour with natural laws such as value and competence.'}
+  };
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  var sheet=document.getElementById('sheet'), body=document.getElementById('sheet-body'), simg=document.getElementById('sheet-img'), lastBtn=null;
+  function openCourse(key,btn){
+    var c=COURSES[key]; if(!c) return; lastBtn=btn;
+    simg.src='img/gsom/'+c.img+'.jpg';
+    var h='<span class="label">Course</span><h2 id="sheet-title">'+esc(c.t)+'</h2>'+
+      '<div class="block"><span class="label">Introduction</span><p>'+esc(c.intro)+'</p></div>'+
+      '<div class="block"><span class="label">Challenge</span><p>'+esc(c.challenge)+'</p></div>'+
+      '<p class="quote">“'+esc(c.quote)+'”</p>'+
+      '<div class="block problem"><span class="label">Problem</span><p>'+esc(c.problem)+'</p></div>'+
+      '<div class="block"><span class="label">Solution</span><p>'+esc(c.solution)+'</p></div>';
+    if(c.aims){ h+='<div class="block"><span class="label">Course aims</span><ol class="aims">'+c.aims.map(function(a){return '<li>'+esc(a)+'</li>';}).join('')+'</ol></div>'; }
+    h+='<a class="pill ember" href="'+APPLY+'" style="justify-self:start">Enroll for Wave 6<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>';
+    body.innerHTML=h;
+    var panel=sheet.querySelector('.sheet-panel');
+    sheet.hidden=false; panel.scrollTop=0;
+    requestAnimationFrame(function(){ panel.scrollTop=0; sheet.classList.add('open'); });
+    document.body.style.overflow='hidden';
+    document.getElementById('sheet-x').focus();
+  }
+  function closeCourse(){
+    sheet.classList.remove('open'); document.body.style.overflow='';
+    setTimeout(function(){ sheet.hidden=true; if(lastBtn) lastBtn.focus(); }, reduce?0:450);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.course'),function(b){ b.addEventListener('click',function(){ openCourse(b.dataset.c,b); }); });
+  document.getElementById('sheet-x').addEventListener('click',closeCourse);
+  sheet.addEventListener('click',function(e){ if(e.target===sheet) closeCourse(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !sheet.hidden) closeCourse(); });
+
+  /* Courses: alternate entrance tilt, pointer-follow glow and tilt */
+  Array.prototype.forEach.call(document.querySelectorAll('.course'),function(c,i){
+    c.style.setProperty('--tilt',(i%2?-2.5:2.5)+'deg');
+    if(reduce) return;
+    c.addEventListener('pointermove',function(e){
+      var r=c.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+      c.style.setProperty('--mx',(x*100)+'%'); c.style.setProperty('--my',(y*100)+'%');
+      c.style.setProperty('--ry',((x-.5)*6).toFixed(2)+'deg'); c.style.setProperty('--rx',((.5-y)*6).toFixed(2)+'deg');
+    });
+    c.addEventListener('pointerleave',function(){ c.style.setProperty('--rx','0deg'); c.style.setProperty('--ry','0deg'); });
+  });
+
+  /* Hero parallax */
+  var pars=Array.prototype.slice.call(document.querySelectorAll('[data-par]')), pt=false;
+  if(!reduce){ window.addEventListener('scroll',function(){ if(pt) return; pt=true; requestAnimationFrame(function(){ pt=false; var y=window.scrollY; if(y<1000) pars.forEach(function(el){ el.style.translate='0 '+(y*parseFloat(el.dataset.par)).toFixed(1)+'px'; }); }); },{passive:true}); }
+
+  /* Gallery loop */
+  var gt=document.getElementById('g-track'); gt.innerHTML+=gt.innerHTML;
+  Array.prototype.forEach.call(gt.children,function(f,i){ if(i>=6) f.setAttribute('aria-hidden','true'); });
+
+  /* Header shadow */
+  var header=document.getElementById('site-header');
+  function onScroll(){ header.classList.toggle('scrolled',window.scrollY>10); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  /* Count-up stats */
+  function countUp(el){
+    var target=+el.dataset.count, start=null, dur=1600;
+    if(reduce){ el.textContent=target+'+'; return; }
+    function step(ts){ if(!start) start=ts; var p=Math.min(1,(ts-start)/dur), e=1-Math.pow(1-p,3); el.textContent=Math.round(target*e)+'+'; if(p<1) requestAnimationFrame(step); }
+    el.textContent='0+'; requestAnimationFrame(step);
+  }
+
+  /* Reveals: only below-the-fold items start lowered, so the page is complete at rest */
+  var targets=document.querySelectorAll('.ark, .about-photo, .about-copy > *, .head, .course, .become-copy > *, .become-photo, .value, .mode-copy > *, .testi blockquote');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting) return; e.target.classList.remove('pending'); io.unobserve(e.target); }); },{rootMargin:'0px 0px -10% 0px',threshold:.1});
+    var vh=window.innerHeight;
+    targets.forEach(function(el){
+      if(!reduce && el.getBoundingClientRect().top>vh*.92){
+        var idx=Array.prototype.indexOf.call(el.parentNode.children,el);
+        el.style.setProperty('--d',(window.innerWidth<=620&&el.classList.contains('course')?0:Math.min(idx,5)*(el.classList.contains('course')?.13:.08))+'s'); el.classList.add('reveal','pending');
+      }
+      io.observe(el);
+    });
+    var so=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ countUp(e.target); so.unobserve(e.target); } }); },{threshold:.6});
+    document.querySelectorAll('[data-count]').forEach(function(el){ so.observe(el); });
+    var foot=document.querySelector('footer');
+    new IntersectionObserver(function(es,o){ es.forEach(function(e){ if(e.isIntersecting){ foot.classList.add('lit'); o.disconnect(); } }); },{threshold:.2}).observe(foot);
+  } else { document.querySelector('footer').classList.add('lit'); }
+  if(reduce){ Array.prototype.forEach.call(document.querySelectorAll('.sheen-anim'),function(a){a.parentNode.removeChild(a);}); }
+
+  /* Copy email / phone */
+  Array.prototype.forEach.call(document.querySelectorAll('.copy-btn'),function(b){
+    b.addEventListener('click',function(){
+      var v=b.dataset.copy;
+      function done(){ b.classList.add('done'); setTimeout(function(){ b.classList.remove('done'); },1600); }
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(v).then(done,function(){ selectText(b); }); } else selectText(b);
+    });
+  });
+  function selectText(el){ var r=document.createRange(); r.selectNodeContents(el.firstChild); var s=window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+})();
+</script>
+
+
+
+<script>
+/* GSOM Wave 6 countdown (31 Jan 2027, 00:00 West Africa Time): digits roll as they change */
+(function(){ var T=new Date('2027-01-31T00:00:00+01:00').getTime(), ids=['cd-d','cd-h','cd-m','cd-s'], prev=[];
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function pad(n){ return (n<10?'0':'')+n; }
+  function set(el,t,first){ if(first||reduce){ el.innerHTML='<span>'+t+'</span>'; return; }
+    var o=el.querySelector('span:last-child'); var n=document.createElement('span'); n.textContent=t; n.className='in';
+    if(o){ o.className='out'; setTimeout(function(){ if(o.parentNode) o.parentNode.removeChild(o); },650); }
+    el.appendChild(n); }
+  function tick(first){ var ms=Math.max(0,T-Date.now()), v=[Math.floor(ms/864e5),Math.floor(ms/36e5)%24,Math.floor(ms/6e4)%60,Math.floor(ms/1e3)%60];
+    ids.forEach(function(id,i){ var el=document.getElementById(id); if(!el) return; var t=i===0?String(v[0]):pad(v[i]); if(prev[i]!==t){ set(el,t,first===true); prev[i]=t; } });
+    if(ms===0){ var l=document.querySelector('.cd-live span'); if(l) l.textContent='Wave 6 has begun'; } }
+  tick(true); setInterval(tick,1000);
+  var cal=document.getElementById('cd-cal');
+  if(cal){ var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//GSOM//Wave 6//EN','BEGIN:VEVENT','UID:gsom-wave6-2027@gethsemanegroup.org','DTSTAMP:20261110T000000Z','DTSTART;VALUE=DATE:20270131','DTEND;VALUE=DATE:20270201','SUMMARY:GSOM Wave 6 begins','DESCRIPTION:Gethsemane School of Ministry - Wave 6 begins.','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    cal.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics); cal.setAttribute('download','gsom-wave-6.ics'); }
+})();
+</script>
+<style id="mx-style">
+/* ---------- Premium motion layer (shared) ---------- */
+.mx-progress{position:fixed;left:0;top:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#D2662A,#D9E47A);z-index:120;pointer-events:none}
+@media (prefers-reduced-motion:no-preference){
+  .mx-pre{opacity:0;translate:0 34px;filter:blur(8px)}
+  .mx-in{transition:opacity 1s cubic-bezier(.22,.68,.2,1),translate 1.1s cubic-bezier(.22,.68,.2,1),filter 1s ease;transition-delay:var(--mxd,0s)}
+  .mx-imgpre{clip-path:inset(100% 0 0 0)}
+  .mx-imgpre img{scale:1.22}
+  .mx-imgin{transition:clip-path 1.3s cubic-bezier(.76,0,.24,1);transition-delay:var(--mxd,0s)}
+  .mx-imgin img{transition:scale 1.8s cubic-bezier(.22,.68,.2,1);transition-delay:var(--mxd,0s)}
+  .mx-w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+  .mx-w>span{display:inline-block;transition:translate 1s cubic-bezier(.22,1.1,.36,1);transition-delay:var(--mxd,0s)}
+  .mx-hpre .mx-w>span{translate:0 110%}
+  .mx-mag{transition:translate .5s cubic-bezier(.22,.68,.2,1)}
+}
+.mx-glow{position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity .45s ease;background:radial-gradient(380px circle at var(--gx,50%) var(--gy,50%),rgba(255,248,230,.22),transparent 55%);z-index:3;mix-blend-mode:soft-light}
+.mx-glow.dark{background:radial-gradient(380px circle at var(--gx,50%) var(--gy,50%),rgba(210,102,42,.14),transparent 60%);mix-blend-mode:normal}
+.mx-card:hover>.mx-glow{opacity:1}
+.mx-cursor{position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border:1.5px solid rgba(210,102,42,.75);border-radius:50%;pointer-events:none;z-index:130;transition:width .35s cubic-bezier(.22,.68,.2,1),height .35s cubic-bezier(.22,.68,.2,1),margin .35s cubic-bezier(.22,.68,.2,1),background .35s,border-color .35s,opacity .3s;opacity:0;mix-blend-mode:multiply}
+.mx-cursor.on{opacity:1}
+.mx-cursor.big{width:64px;height:64px;margin:-32px 0 0 -32px;background:rgba(210,102,42,.12);border-color:rgba(210,102,42,.4)}
+.mx-cursor.dot{width:8px;height:8px;margin:-4px 0 0 -4px;background:#D2662A;border-color:transparent}
+.nav-links a{background:linear-gradient(currentColor,currentColor) left 100%/0 1px no-repeat;padding-bottom:3px;transition:background-size .45s cubic-bezier(.22,.68,.2,1),opacity .3s}
+.nav-links a:hover{background-size:100% 1px}
+footer a:not(.pill){background:linear-gradient(currentColor,currentColor) left 100%/0 1px no-repeat;transition:background-size .45s cubic-bezier(.22,.68,.2,1),color .3s}
+footer a:not(.pill):hover{background-size:100% 1px}
+.pill{transition:background .3s,color .3s,border-color .3s,box-shadow .4s}
+.pill:hover{box-shadow:0 14px 30px -16px rgba(31,32,28,.45)}
+.pill:active{scale:.97}
+@media (prefers-reduced-motion:reduce){.mx-cursor,.mx-progress{display:none}}
+</style>
+<div class="mx-progress" id="mx-progress" aria-hidden="true"></div>
+<script id="mx-script">
+/* Premium motion layer: staggered reveals, word-by-word headings, image wipes, magnetic buttons,
+   card spotlight, cursor ring and a scroll progress line. Content above the fold is never hidden. */
+(function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine=window.matchMedia&&window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var bar=document.getElementById('mx-progress');
+  function prog(){ var h=document.documentElement.scrollHeight-innerHeight; bar.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0)+')'; }
+  addEventListener('scroll',prog,{passive:true}); addEventListener('resize',prog); prog();
+  var SKIP='.hero2,.hero,.gh,.ap-hero,.hero-sticky,.loader,.deck,.story-track,.sm-track,.pt-curtain,.menu,.site-header,.reg,.sheet,.welcome,.panel,.tl2,.sr-grid';
+  function skipped(el){ return el.closest(SKIP)||el.closest('[data-a]')||el.closest('.reveal')||el.classList.contains('pending'); }
+  function setup(){
+    if(reduce) return;
+    var vh=innerHeight, pend=[];
+    function show(el){ el.classList.add('mx-in','mx-imgin'); el.classList.remove('mx-pre','mx-imgpre','mx-hpre');
+      setTimeout(function(){ el.classList.remove('mx-in','mx-imgin'); el.style.removeProperty('--mxd'); },2600); }
+    var io={observe:function(el){ pend.push(el); }};
+    var ticking=false;
+    function check(){ ticking=false; var lim=innerHeight*0.9, end=(innerHeight+scrollY)>=document.documentElement.scrollHeight-4;
+      pend=pend.filter(function(el){ var r=el.getBoundingClientRect(); if(end||r.top<lim){ show(el); return false; } return true; }); }
+    addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(check); } },{passive:true});
+    addEventListener('resize',check);
+    setTimeout(check,60);
+    function below(el){ return el.getBoundingClientRect().top>vh*0.92; }
+    /* headings: word by word */
+    Array.prototype.forEach.call(document.querySelectorAll('main section h2, main .head h2, main section .title'),function(h){
+      if(h.__mx||skipped(h)||!below(h)||h.querySelector('.tmask')) return; h.__mx=1;
+      var i=0; (function walk(n){ Array.prototype.slice.call(n.childNodes).forEach(function(c){
+        if(c.nodeType===3){ var fr=document.createDocumentFragment(); c.textContent.split(/(\s+)/).forEach(function(w){ if(!w) return; if(/^\s+$/.test(w)){ fr.appendChild(document.createTextNode(w)); return; }
+          var o=document.createElement('span'); o.className='mx-w'; var s=document.createElement('span'); s.textContent=w; s.style.setProperty('--mxd',(i++*0.06)+'s'); o.appendChild(s); fr.appendChild(o); }); c.parentNode.replaceChild(fr,c); }
+        else if(c.nodeType===1&&!/^(SVG|IMG|BR)$/i.test(c.tagName)) walk(c); }); })(h);
+      h.classList.add('mx-hpre'); io.observe(h); });
+    /* images: wipe up + settle */
+    Array.prototype.forEach.call(document.querySelectorAll('main .path, main .sm-im, main .af-photo, main .apf-photo, main .word-photo, main .shot .im, main .photo, main .about-photo, main .become-photo, main .mode-photo, main .course .im, main .gather-photo .im, main .aside .ph'),function(el,k){
+      if(el.__mx||skipped(el)||!below(el)||!el.querySelector('img')) return; el.__mx=1;
+      el.style.setProperty('--mxd',(k%4*0.08)+'s'); el.classList.add('mx-imgpre'); io.observe(el); });
+    /* blocks: staggered rise */
+    var BLOCK='main section .sub,main section p:not(.label),main section .label,main section .pill,main .ab-calling article,main .apf-copy>*,main .ev,main .row,main .arm,main .faq details,main .info>*,main form.prayer,main .give .inner>*,main .connect-grid>*,main .sr-tools,main .sr-tabs,main .step,main .value,main .stat,main .mods li,main .who>div,main .steps li,main .facts,main .card,main .ab-head>*,main .story-end>*,main .ap-who-head>*,main .statement-in>*,main .word-inner>*,main .sm-ctrl,main .tc-hint,main .deck-ctrl';
+    var groups=new Map();
+    Array.prototype.forEach.call(document.querySelectorAll(BLOCK),function(el){
+      if(el.__mx||skipped(el)||!below(el)||el.closest('.mx-hpre')||el.closest('h2')) return;
+      if(el.parentNode.closest&&el.parentNode.closest('.mx-pre')) return;
+      el.__mx=1; var p=el.parentNode, n=(groups.get(p)||0); groups.set(p,n+1);
+      el.style.setProperty('--mxd',Math.min(n,6)*0.08+'s'); el.classList.add('mx-pre'); io.observe(el); });
+  }
+  /* magnetic buttons */
+  function magnet(){ if(reduce||!fine) return;
+    Array.prototype.forEach.call(document.querySelectorAll('.pill,.down,.sm-ctrl button,.deck-ctrl button,.tl-ctrl button,.burger'),function(b){
+      b.classList.add('mx-mag');
+      b.addEventListener('pointermove',function(e){ var r=b.getBoundingClientRect(); var x=(e.clientX-r.left-r.width/2)*.22, y=(e.clientY-r.top-r.height/2)*.3; b.style.translate=x.toFixed(1)+'px '+y.toFixed(1)+'px'; });
+      b.addEventListener('pointerleave',function(){ b.style.translate=''; }); }); }
+  /* card spotlight */
+  function glow(){ if(!fine) return;
+    Array.prototype.forEach.call(document.querySelectorAll('.path,.arm,.ev,.ab-calling article,.st-card,.sr-card .sr-im,.sm-im,.course,.value,.tc,.card,.faq details'),function(c){
+      if(c.querySelector(':scope>.mx-glow')) return;
+      if(getComputedStyle(c).position==='static') c.style.position='relative';
+      var g=document.createElement('span'); g.className='mx-glow'+(/ev|ab-calling|card|value|faq|st-card/.test(c.className+(c.tagName==='ARTICLE'?' ab-calling':'')+(c.tagName==='DETAILS'?' faq':''))?' dark':''); g.setAttribute('aria-hidden','true');
+      c.appendChild(g); c.classList.add('mx-card');
+      c.addEventListener('pointermove',function(e){ var r=c.getBoundingClientRect(); c.style.setProperty('--gx',(e.clientX-r.left)+'px'); c.style.setProperty('--gy',(e.clientY-r.top)+'px'); g.style.setProperty('--gx',(e.clientX-r.left)+'px'); g.style.setProperty('--gy',(e.clientY-r.top)+'px'); }); }); }
+  /* cursor ring */
+  function cursor(){ if(reduce||!fine) return;
+    var c=document.createElement('div'); c.className='mx-cursor'; c.setAttribute('aria-hidden','true'); document.body.appendChild(c);
+    var x=-100,y=-100,cx=-100,cy=-100,raf=null;
+    function loop(){ cx+=(x-cx)*.2; cy+=(y-cy)*.2; c.style.transform='translate('+cx.toFixed(1)+'px,'+cy.toFixed(1)+'px)'; raf=(Math.abs(x-cx)>.2||Math.abs(y-cy)>.2)?requestAnimationFrame(loop):null; }
+    addEventListener('pointermove',function(e){ if(e.pointerType!=='mouse') return; x=e.clientX; y=e.clientY; c.classList.add('on');
+      var t=e.target; var big=t.closest&&t.closest('a,button,summary,.path,.sm,.sr-card,.tc,.course,label'); var txt=t.closest&&t.closest('input,textarea,select');
+      c.classList.toggle('big',!!big&&!txt); c.classList.toggle('dot',!!txt); if(!raf) raf=requestAnimationFrame(loop); });
+    document.addEventListener('pointerleave',function(){ c.classList.remove('on'); });
+    addEventListener('pointerdown',function(){ c.style.scale='.85'; }); addEventListener('pointerup',function(){ c.style.scale=''; }); }
+  function init(){ setup(); magnet(); glow(); cursor(); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){ setTimeout(init,30); }); else setTimeout(init,30);
+})();
+</script>
+<style id="mx2-style">
+/* ---------- Motion layer 2 (shared): image parallax, count-ups, label decode, button ripple ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .mx-par:not(.mx-imgpre) img{scale:1.1}
+  .mx-par img{will-change:translate}
+}
+.pill,.cd-cal,.sr-tabs button,.chip,button.tab{position:relative;overflow:hidden}
+.mx-rip{position:absolute;border-radius:50%;pointer-events:none;background:currentColor;opacity:.22;transform:scale(0);animation:mxrip .7s cubic-bezier(.22,.68,.2,1) forwards}
+@keyframes mxrip{to{transform:scale(1);opacity:0}}
+.mx-dec{font-variant-numeric:tabular-nums}
+</style>
+<script id="mx2-script">
+(function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var SKIP='.hero2,.gh,.hero,.ap-hero,.loader,.deck,.pt-curtain,.menu,.site-header,.cd,.sr-grid,.story-track';
+  function init(){
+    /* 1. ripple on buttons */
+    document.addEventListener('pointerdown',function(e){ var b=e.target.closest&&e.target.closest('.pill,.cd-cal,.sr-tabs button,button.tab'); if(!b||reduce) return;
+      var r=b.getBoundingClientRect(), d=Math.max(r.width,r.height)*2.2, s=document.createElement('span'); s.className='mx-rip';
+      s.style.width=s.style.height=d+'px'; s.style.left=(e.clientX-r.left-d/2)+'px'; s.style.top=(e.clientY-r.top-d/2)+'px';
+      b.appendChild(s); setTimeout(function(){ s.remove(); },750); });
+    if(reduce) return;
+    /* 2. gentle parallax inside large photos */
+    var par=[];
+    Array.prototype.forEach.call(document.querySelectorAll('main .sm-im, main .af-photo, main .apf-photo, main .word-photo, main .shot .im, main .photo, main .about-photo, main .become-photo, main .mode-photo, main .gather-photo .im, main .al-ph, main .path, main .ab-photo, main .figure, main figure'),function(el){
+      if(el.closest(SKIP)) return; var img=el.querySelector('img'); if(!img||el.__par) return;
+      var cs=getComputedStyle(el); if(cs.overflow==='visible'&&cs.overflowY==='visible') return;
+      el.__par=1; el.classList.add('mx-par'); par.push({el:el,imgs:el.querySelectorAll('img')}); });
+    var tk=false;
+    function run(){ tk=false; var vh=innerHeight;
+      par.forEach(function(o){ var r=o.el.getBoundingClientRect(); if(r.bottom<-50||r.top>vh+50||r.height<120) return;
+        var p=((r.top+r.height/2)-vh/2)/(vh/2+r.height/2); p=Math.max(-1,Math.min(1,p)); var y=(-p*r.height*0.045).toFixed(1)+'px';
+        Array.prototype.forEach.call(o.imgs,function(i){ i.style.translate='0 '+y; }); }); }
+    addEventListener('scroll',function(){ if(!tk){ tk=true; requestAnimationFrame(run); } },{passive:true}); addEventListener('resize',run); run();
+    /* 3. count-up for big numbers like 80+ */
+    var nums=[];
+    Array.prototype.forEach.call(document.querySelectorAll('main b, main strong, main .num, main .stat-n, main .big'),function(el){
+      if(el.closest(SKIP)||el.children.length) return; var m=/^(\d{1,4})(\+|%)?$/.exec(el.textContent.trim()); if(!m) return;
+      if(parseFloat(getComputedStyle(el).fontSize)<30) return; el.__n=+m[1]; el.__w=m[1].length; el.__suf=m[2]||''; el.classList.add('mx-dec'); nums.push(el); });
+    /* 4. mono labels decode letter by letter */
+    var labs=[];
+    Array.prototype.forEach.call(document.querySelectorAll('main section .label'),function(el){
+      if(el.closest(SKIP)||el.children.length) return; var t=el.textContent; if(t.length>44||t.length<3) return;
+      if(el.getBoundingClientRect().top<innerHeight) return; el.__t=t; labs.push(el); });
+    if(!('IntersectionObserver' in window)) return;
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting) return; io.unobserve(e.target); var el=e.target;
+      if(el.__n!=null){ var n=el.__n, suf=el.__suf, t0=performance.now(), D=1600; (function f(now){ var k=Math.min(1,(now-t0)/D), v=Math.round(n*(1-Math.pow(1-k,4))); var vs=String(v); while(vs.length<el.__w) vs='0'+vs; el.textContent=vs+suf; if(k<1) requestAnimationFrame(f); })(t0); }
+      else if(el.__t){ var T=el.__t, G='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789·/', f2=0, tot=Math.min(28,T.length+8); (function g(){ f2++; var rev=Math.floor(T.length*f2/tot), out='';
+        for(var i=0;i<T.length;i++){ out+= i<rev||T[i]===' ' ? T[i] : G[Math.floor(Math.random()*G.length)]; } el.textContent=out; if(f2<tot) setTimeout(g,34); else el.textContent=T; })(); }
+    }); },{rootMargin:'0px 0px -12% 0px'});
+    nums.forEach(function(el){ io.observe(el); }); labs.forEach(function(el){ io.observe(el); });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){ setTimeout(init,60); }); else setTimeout(init,60);
+})();
+</script>
+
+</body>
+</html>
