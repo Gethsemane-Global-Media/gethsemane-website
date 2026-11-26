@@ -231,8 +231,8 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
   <section class="intro">
     <div class="intro-bg" aria-hidden="true"><picture><source media="(max-width:700px)" srcset="img/gsom/graduates-m.jpg"><img src="img/gsom/graduates.jpg" alt=""></picture></div>
     <div class="wrap">
-      <span class="label intro-tag"><i aria-hidden="true"></i>Gethsemane School of Ministry · Wave 6</span>
-      <h1>Register for <em>Wave 6</em></h1>
+      <span class="label intro-tag"><i aria-hidden="true"></i>Gethsemane School of Ministry · Wave 7</span>
+      <h1>Register for <em>Wave 7</em></h1>
       <p>An 8-month discipleship training program. GSOM is free; there is a small administrative fee with a flexible payment plan. Fill in your details and the GSOM team will schedule your interview.</p>
     </div>
   </section>
@@ -240,6 +240,7 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
     <aside class="aside">
       <div class="ph"><img src="img/gsom/banner.jpg" alt="Ap. David Dauda"></div>
       <div class="facts">
+        <div><b>Registration closes</b><span>Saturday, 30 January 2027</span></div>
         <div><b>Duration</b><span>8 months</span></div>
         <div><b>Tuition</b><span>Free</span></div>
         <div><b>Admin fee</b><span>₦30,000 online<br>₦25,000 onsite</span></div>
@@ -340,7 +341,7 @@ window.scrollTo(0,0);
     if(!agree.checked){ note.hidden=false; note.textContent='Please agree to the terms and conditions to continue.'; agree.focus(); return; }
     var data={}; Array.prototype.forEach.call(form.elements,function(el){ if(el.name && (el.type!=='radio'||el.checked)) data[el.name]=el.value.trim(); });
     data.admin_fee=feeText(); data.payment=document.getElementById('fee-plan').textContent;
-    data._subject='New GSOM Wave 6 registration: '+data.name;
+    data._subject='New GSOM Wave 7 registration: '+data.name;
     var btn=document.getElementById('rg-submit');
     function success(msg){ form.hidden=true; done.hidden=false; document.getElementById('reg-done-msg').textContent=msg; form.reset(); updFee(); window.scrollTo({top:0,behavior:'smooth'}); }
     if(!FORM_ENDPOINT){ document.getElementById('reg-done-title').textContent='Form preview'; success('Thank you, '+data.name.split(' ')[0]+'. Your interview would be scheduled next. (Preview: this form is not connected to the GSOM inbox yet, so no email was sent.)'); return; }
