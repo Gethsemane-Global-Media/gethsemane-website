@@ -471,6 +471,23 @@ section{padding-block:clamp(90px,12vw,170px)}
 @media (max-width:720px){.ev{grid-template-columns:1fr}.ev .meta{text-align:left}}
 
 /* ---------- Give ---------- */
+/* GSOM band on the homepage */
+.gsom-band{background:var(--forest);color:var(--white)}
+.gsom-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(36px,6vw,90px);align-items:center}
+.gsom-photo{margin:0;border-radius:22px;overflow:hidden;aspect-ratio:4/3;background:var(--night)}
+.gsom-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.gsom-copy{display:grid;gap:22px;justify-items:start}
+.gsom-copy .label{color:var(--lime)}
+.gsom-copy h2{font-size:clamp(2.4rem,5.4vw,4.4rem);line-height:.95}
+.gsom-copy h2 em{color:var(--lime)}
+.gsom-copy p{color:rgba(251,249,245,.82);max-width:34rem;margin:0}
+.gsom-facts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:rgba(251,249,245,.16);border-radius:16px;overflow:hidden;width:100%}
+.gsom-facts li{background:var(--forest);padding:14px 16px;display:grid;gap:4px}
+.gsom-facts li span{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(251,249,245,.6)}
+.gsom-facts li b{font-weight:500;font-size:.98rem}
+.gsom-cta{display:flex;flex-wrap:wrap;gap:12px}
+@media (max-width:820px){.gsom-grid{grid-template-columns:1fr}.gsom-photo{aspect-ratio:16/10}}
+@media (max-width:420px){.gsom-facts{grid-template-columns:1fr}}
 .give{background:var(--olive);color:var(--white);text-align:center}
 .give .inner{max-width:48rem;margin-inline:auto;display:grid;gap:26px;justify-items:center}
 .give .label{color:rgba(251,249,245,.62)}
@@ -1008,6 +1025,28 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
   </div>
 </section>
 
+
+<!-- GSOM: Gethsemane School of Ministry, Wave 7 intake -->
+<section class="gsom-band" id="gsom" aria-labelledby="gsom-title">
+  <div class="wrap gsom-grid">
+    <figure class="gsom-photo"><img src="img/gsom/graduates.jpg" alt="Gethsemane School of Ministry graduates" loading="lazy"></figure>
+    <div class="gsom-copy">
+      <span class="label">Gethsemane School of Ministry</span>
+      <h2 id="gsom-title">Wave 7 is <em>now enrolling</em></h2>
+      <p>GSOM is our training arm: an 8-month discipleship program, held online and onsite at Fed Poly, Bida, that equips a younger generation with the ancient wisdom of the Kingdom.</p>
+      <ul class="gsom-facts">
+        <li><span>Registration closes</span><b>30 January 2027</b></li>
+        <li><span>Duration</span><b>8 months</b></li>
+        <li><span>Tuition</span><b>Free</b></li>
+        <li><span>Admin fee</span><b>₦30,000 online · ₦25,000 onsite</b></li>
+      </ul>
+      <div class="gsom-cta">
+        <a class="pill light" href="register.html">Register for Wave 7<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
+        <a class="pill ghost" href="gsom.html#top">About GSOM<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- FOUNDER'S WORD (COZA-style quote band). The quote below is a placeholder: replace with a real word from the Founder -->
 <section class="word" aria-labelledby="word-title">
