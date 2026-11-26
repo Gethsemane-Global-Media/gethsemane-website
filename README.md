@@ -28,6 +28,6 @@ python3 -m http.server 8000
 
 - **Wave 7 registration is connected.** `register.html` sends each registration to the Google Form "GSOM Wave 7 Registration (website)" in the GSOM (gsom.gkni@gmail.com) Drive. If questions are added or renamed there, update `FORM_FIELDS` in `register.html` with the new entry ids.
 - **Church forms are not connected.** The prayer request form and the newsletter sign-up (`index.html`) only show a preview message. Connect them to a form service that forwards to the right inbox.
-- **Placeholders to replace:** church street address and city, and the Get directions link.
+- **Church address:** Treasure Spring Auditorium, opposite RCF, Bida, Niger State (Visit us section and Get directions link).
 - **Links with no destination:** App Store / Google Play badges, and "Terms and conditions apply" on the GSOM page.
 - **Content to confirm with the church:** the "80+ students" figure and the timeline on the About and Story pages.
