@@ -233,7 +233,7 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
     <div class="wrap">
       <span class="label intro-tag"><i aria-hidden="true"></i>Gethsemane School of Ministry · Wave 7</span>
       <h1>Register for <em>Wave 7</em></h1>
-      <p>An 8-month discipleship training program. GSOM is free; there is a small administrative fee with a flexible payment plan. Fill in your details and the GSOM team will schedule your interview.</p>
+      <p>An 8-month discipleship training program. GSOM is free; there is a small administrative fee you can spread over three months, and you can start classes as soon as your first instalment is paid. Fill in your details and the GSOM team will schedule your interview.</p>
     </div>
   </section>
   <div class="wrap layout">
@@ -244,7 +244,7 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
         <div><b>Duration</b><span>8 months</span></div>
         <div><b>Tuition</b><span>Free</span></div>
         <div><b>Admin fee</b><span>₦30,000 online<br>₦25,000 onsite</span></div>
-        <div><b>Payment</b><span>Flexible, up to 3 months</span></div>
+        <div><b>Payment</b><span>3 monthly instalments<br>Start after the first</span></div>
         <div><b>Interview</b><span>Scheduled after you register</span></div>
         <div><b>Venue</b><span>Fed Poly, Bida, Niger State</span></div>
         <div><b>Questions</b><span>gsom.gkni@gmail.com<br>+234 703 105 1140</span></div>
@@ -275,7 +275,7 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
         <legend>Payment plan * <small>For the administrative fee</small></legend>
         <div class="opts">
           <label class="opt"><input type="radio" name="plan" value="Full payment"><span class="opt-b"><b>Pay in full</b><small id="pl-full">Choose an attendance mode first</small></span></label>
-          <label class="opt"><input type="radio" name="plan" value="3 monthly instalments"><span class="opt-b"><b>Spread over 3 months</b><small id="pl-split">Three monthly instalments</small></span></label>
+          <label class="opt"><input type="radio" name="plan" value="3 monthly instalments"><span class="opt-b"><b>Spread over 3 months</b><small id="pl-split">About a third each month. Start classes after the first.</small></span></label>
         </div>
       </fieldset>
 
@@ -323,11 +323,11 @@ window.scrollTo(0,0);
   function naira(n){ return '₦'+Math.round(n).toLocaleString('en-NG'); }
   function feeVal(){ var m=document.querySelector('input[name=mode]:checked'); return m?+m.getAttribute('data-fee'):0; }
   function feeText(){ var f=feeVal(); return f?naira(f):''; }
-  function split(f){ var a=Math.floor(f/3); return [a,a,f-2*a]; }
+  function split(f){ var a=Math.floor(f/3000)*1000; return [f-2*a,a,a]; }
   function updFee(){ var f=feeVal(), p=document.querySelector('input[name=plan]:checked');
     document.getElementById('fee-amt').textContent=f?naira(f):'—';
     document.getElementById('pl-full').textContent=f?naira(f)+' once':'Choose an attendance mode first';
-    var sp=f?split(f):null; document.getElementById('pl-split').textContent=sp?(sp[0]===sp[2]?'3 × '+naira(sp[0])+' monthly':naira(sp[0])+', '+naira(sp[1])+', '+naira(sp[2])+' monthly'):'Three monthly instalments';
+    var sp=f?split(f):null; document.getElementById('pl-split').textContent=sp?(sp[0]===sp[2]?'3 × '+naira(sp[0])+' monthly':naira(sp[0])+', '+naira(sp[1])+', '+naira(sp[2])+' monthly'):'About a third each month. Start classes after the first.';
     document.getElementById('fee-plan').textContent=!p?'—':(!f?p.value:(p.value==='Full payment'?naira(f)+' once':(sp[0]===sp[2]?'3 × '+naira(sp[0]):naira(sp[0])+' + '+naira(sp[1])+' + '+naira(sp[2]))));
     document.querySelectorAll('.opt-set').forEach(function(fs){ if(fs.querySelector('input:checked')) fs.classList.remove('bad'); }); }
   document.querySelectorAll('input[name=mode],input[name=plan]').forEach(function(r){ r.addEventListener('change',updFee); });
