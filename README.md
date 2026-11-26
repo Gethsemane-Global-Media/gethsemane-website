@@ -30,5 +30,4 @@ python3 -m http.server 8000
 - **Church forms are not connected.** The prayer request form and the newsletter sign-up (`index.html`) only show a preview message. Connect them to a form service that forwards to the right inbox.
 - **Placeholders to replace:** church street address and city, bank name and account number for giving, and the Get directions link.
 - **Links with no destination:** App Store / Google Play badges, and "Terms and conditions apply" on the GSOM page.
-- **Fees to confirm for Wave 7:** the admin fee (₦30,000 online, ₦25,000 onsite) and the 3-month payment plan were carried over from Wave 6 and are not yet confirmed for Wave 7.
 - **Content to confirm with the church:** testimonies other than Asimana Onyeka's, upcoming event dates, the "80+ students" figure and the timeline on the About and Story pages.
