@@ -231,8 +231,8 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
   <section class="intro">
     <div class="intro-bg" aria-hidden="true"><picture><source media="(max-width:700px)" srcset="img/gsom/graduates-m.jpg"><img src="img/gsom/graduates.jpg" alt=""></picture></div>
     <div class="wrap">
-      <span class="label intro-tag"><i aria-hidden="true"></i>Gethsemane School of Ministry · Wave 6</span>
-      <h1>Register for <em>Wave 6</em></h1>
+      <span class="label intro-tag"><i aria-hidden="true"></i>Gethsemane School of Ministry · Wave 7</span>
+      <h1>Register for <em>Wave 7</em></h1>
       <p>An 8-month discipleship training program. GSOM is free; there is a small administrative fee with a flexible payment plan. Fill in your details and the GSOM team will schedule your interview.</p>
     </div>
   </section>
@@ -240,6 +240,7 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
     <aside class="aside">
       <div class="ph"><img src="img/gsom/banner.jpg" alt="Ap. David Dauda"></div>
       <div class="facts">
+        <div><b>Registration closes</b><span>Saturday, 30 January 2027</span></div>
         <div><b>Duration</b><span>8 months</span></div>
         <div><b>Tuition</b><span>Free</span></div>
         <div><b>Admin fee</b><span>₦30,000 online<br>₦25,000 onsite</span></div>
@@ -310,10 +311,15 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
 <script>
 try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }catch(e){}
 window.scrollTo(0,0);
-/* To have each registration emailed to GSOM: create a free form endpoint (Formspree or Web3Forms)
-   that forwards to gsom.gkni@gmail.com, and paste its URL into FORM_ENDPOINT. */
+/* Registrations are sent to the Google Form "GSOM Wave 7 Registration (website)" in the
+   gsom.gkni@gmail.com Drive. Responses appear in that form (and its linked sheet, if any).
+   FORM_FIELDS maps each field on this page to the Google Form question's entry id.
+   Google does not allow reading the reply from another site, so a sent request counts as success. */
 (function(){
-  var FORM_ENDPOINT='';
+  var FORM_ENDPOINT='https://docs.google.com/forms/d/e/1FAIpQLSe5gv8bq7Aj8oOXcIyOi49E6Vr_4lAp4UVrLSKa3XuvknxHig/formResponse';
+  var FORM_FIELDS={name:'285079806',phone:'1064544118',email:'8528009',gender:'1111380531',location:'1818690678',
+    mode:'953278658',plan:'1103944155',admin_fee:'260097945',payment:'1117196941',church:'58809244',
+    reason:'1957100679',interview_availability:'1288723702'};
   function naira(n){ return '₦'+Math.round(n).toLocaleString('en-NG'); }
   function feeVal(){ var m=document.querySelector('input[name=mode]:checked'); return m?+m.getAttribute('data-fee'):0; }
   function feeText(){ var f=feeVal(); return f?naira(f):''; }
@@ -340,13 +346,13 @@ window.scrollTo(0,0);
     if(!agree.checked){ note.hidden=false; note.textContent='Please agree to the terms and conditions to continue.'; agree.focus(); return; }
     var data={}; Array.prototype.forEach.call(form.elements,function(el){ if(el.name && (el.type!=='radio'||el.checked)) data[el.name]=el.value.trim(); });
     data.admin_fee=feeText(); data.payment=document.getElementById('fee-plan').textContent;
-    data._subject='New GSOM Wave 6 registration: '+data.name;
     var btn=document.getElementById('rg-submit');
     function success(msg){ form.hidden=true; done.hidden=false; document.getElementById('reg-done-msg').textContent=msg; form.reset(); updFee(); window.scrollTo({top:0,behavior:'smooth'}); }
     if(!FORM_ENDPOINT){ document.getElementById('reg-done-title').textContent='Form preview'; success('Thank you, '+data.name.split(' ')[0]+'. Your interview would be scheduled next. (Preview: this form is not connected to the GSOM inbox yet, so no email was sent.)'); return; }
     btn.disabled=true; note.hidden=false; note.textContent='Sending…';
-    fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
-      .then(function(r){ if(!r.ok) throw new Error(r.status); success('Thank you, '+data.name.split(' ')[0]+'. The GSOM team has your details and will contact you to schedule your interview.'); })
+    var body=new URLSearchParams(); Object.keys(FORM_FIELDS).forEach(function(k){ if(data[k]) body.append('entry.'+FORM_FIELDS[k],data[k]); });
+    fetch(FORM_ENDPOINT,{method:'POST',mode:'no-cors',body:body})
+      .then(function(){ success('Thank you, '+data.name.split(' ')[0]+'. The GSOM team has your details and will contact you to schedule your interview.'); })
       .catch(function(){ note.textContent='We could not send your registration. Please check your connection and try again, or email gsom.gkni@gmail.com.'; })
       .then(function(){ btn.disabled=false; });
   });
