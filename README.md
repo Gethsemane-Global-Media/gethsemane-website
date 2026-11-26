@@ -30,4 +30,4 @@ python3 -m http.server 8000
 - **Church forms are not connected.** The prayer request form and the newsletter sign-up (`index.html`) only show a preview message. Connect them to a form service that forwards to the right inbox.
 - **Placeholders to replace:** church street address and city, bank name and account number for giving, and the Get directions link.
 - **Links with no destination:** App Store / Google Play badges, and "Terms and conditions apply" on the GSOM page.
-- **Content to confirm with the church:** upcoming event dates, the "80+ students" figure and the timeline on the About and Story pages.
+- **Content to confirm with the church:** the "80+ students" figure and the timeline on the About and Story pages.
