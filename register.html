@@ -100,6 +100,22 @@ section{padding-block:clamp(90px,11vw,150px)}
 .check{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:.95rem}
 .check input{margin-top:4px;accent-color:var(--ember)}
 .reg-form .pill{justify-self:start}
+.mode-rule{margin:4px 0 12px;padding:12px 14px;border-radius:12px;background:#FBF1D9;border:1px solid #EAD9A8;color:#5A4410;font-size:.92rem;line-height:1.5}
+.mode-rule b{color:#3E2E08}
+.field .err{display:none;color:#B3361E;font-size:.82rem}
+.field.bad .err{display:block}
+.ready{border:1px dashed var(--line);border-radius:14px;padding:14px 16px;background:#FFFDF8;transition:border-color .3s,background .3s}
+.ready-t{font-size:.86rem;font-weight:600;color:var(--ink);margin-bottom:6px}
+.ready ul{list-style:none;margin:0;padding:0;display:grid;gap:4px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.ready li{font-size:.86rem;color:var(--muted);display:flex;gap:8px;align-items:center;transition:color .3s}
+.ready li::before{content:"";width:16px;height:16px;flex:none;border-radius:50%;border:1.5px solid #C9BFAE;transition:background .3s,border-color .3s}
+.ready li.ok{color:#3F7800}
+.ready li.ok::before{background:#3F7800 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat;border-color:#3F7800}
+.ready.all{border-style:solid;border-color:#A6D45A;background:#F2F7E8}
+.ready.all ul{display:none}
+#rg-submit:disabled{opacity:.42;cursor:not-allowed;filter:saturate(.4)}
+#rg-submit:disabled:hover{background:var(--ember)}
+#rg-submit:disabled .ar{transform:none}
 .reg-note{font-size:.95rem;color:var(--ember)}
 .reg-done{justify-items:start}
 .reg-done .tick{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--night);font-size:1.5rem}
@@ -264,16 +280,17 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
         <div class="field"><label for="rg-phone">Phone / WhatsApp *</label><input id="rg-phone" name="phone" type="tel" autocomplete="tel" required></div>
       </div>
       <div class="f2">
-        <div class="field"><label for="rg-email">Email *</label><input id="rg-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="rg-email">Email *</label><input id="rg-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="name@gmail.com" required><small class="err" id="err-email">Enter a valid email address, for example name@gmail.com.</small></div>
         <div class="field"><label for="rg-gender">Gender</label><select id="rg-gender" name="gender"><option value="">Select</option><option>Male</option><option>Female</option></select></div>
       </div>
       <div class="field"><label for="rg-city">City / location</label><input id="rg-city" name="location" autocomplete="address-level2"></div>
 
       <fieldset class="opt-set" id="fs-mode">
         <legend>Attendance mode * <small>Choose one</small></legend>
+        <p class="mode-rule"><b>Living in Bida? You must choose Onsite.</b> Online classes are strictly for applicants who live outside Bida.</p>
         <div class="opts">
-          <label class="opt"><input type="radio" name="mode" value="Online"><span class="opt-b"><b>Online</b><small>Join classes from anywhere</small></span></label>
-          <label class="opt"><input type="radio" name="mode" value="Onsite (Fed Poly, Bida)"><span class="opt-b"><b>Onsite</b><small>Physical classes at Fed Poly, Bida</small></span></label>
+          <label class="opt"><input type="radio" name="mode" value="Onsite (Fed Poly, Bida)"><span class="opt-b"><b>Onsite</b><small>For everyone living in Bida. Physical classes at Fed Poly, Bida.</small></span></label>
+          <label class="opt"><input type="radio" name="mode" value="Online"><span class="opt-b"><b>Online</b><small>Strictly for applicants living outside Bida.</small></span></label>
         </div>
       </fieldset>
 
@@ -289,7 +306,19 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
       </div>
       <label class="check"><input type="checkbox" id="rg-iv" required> I understand I will be scheduled for an interview.</label>
       <label class="check"><input type="checkbox" id="rg-agree" required> <span>I agree to the <a href="terms.html" target="_blank" rel="noopener">GSOM terms and conditions</a>.</span></label>
-      <button class="pill ember" type="submit" id="rg-submit">Submit registration<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></button>
+      <div class="ready" id="ready" aria-live="polite">
+        <p class="ready-t" id="ready-t">To submit, complete these:</p>
+        <ul id="ready-list">
+          <li data-k="name">Full name</li>
+          <li data-k="phone">Phone / WhatsApp number</li>
+          <li data-k="email">A valid email address</li>
+          <li data-k="mode">Attendance mode</li>
+          <li data-k="avail">When you are free for the interview</li>
+          <li data-k="iv">Tick: I understand I will be interviewed</li>
+          <li data-k="agree">Tick: I agree to the terms and conditions</li>
+        </ul>
+      </div>
+      <button class="pill ember" type="submit" id="rg-submit" disabled aria-describedby="ready-t">Submit registration<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></button>
       <p class="reg-note" id="reg-note" role="status" hidden></p>
     </form>
       <div class="reg-done" id="reg-done" hidden>
@@ -328,6 +357,26 @@ window.scrollTo(0,0);
   function updFee(){ document.querySelectorAll('.opt-set').forEach(function(fs){ if(fs.querySelector('input:checked')) fs.classList.remove('bad'); }); }
   document.querySelectorAll('input[name=mode]').forEach(function(r){ r.addEventListener('change',updFee); });
   var form=document.getElementById('reg-form'), done=document.getElementById('reg-done'), note=document.getElementById('reg-note');
+  var btnS=document.getElementById('rg-submit'), ready=document.getElementById('ready'), readyT=document.getElementById('ready-t');
+  var EMAIL_RE=/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
+  function state(){ return {
+    name:!!document.getElementById('rg-name').value.trim(),
+    phone:document.getElementById('rg-phone').value.replace(/\D/g,'').length>=7,
+    email:EMAIL_RE.test(document.getElementById('rg-email').value.trim()),
+    mode:!!form.querySelector('input[name=mode]:checked'),
+    avail:!!document.getElementById('rg-avail').value,
+    iv:document.getElementById('rg-iv').checked,
+    agree:document.getElementById('rg-agree').checked }; }
+  function check(){ var st=state(), left=0;
+    document.querySelectorAll('#ready-list li').forEach(function(li){ var ok=st[li.getAttribute('data-k')]; li.classList.toggle('ok',ok); if(!ok) left++; });
+    btnS.disabled=left>0; ready.classList.toggle('all',left===0);
+    readyT.textContent=left===0?'All done. You can submit your registration.':(left===1?'Almost there. 1 thing left:':'To submit, complete these ('+left+' left):');
+    if(!st.email && document.getElementById('rg-email').dataset.touched) document.getElementById('rg-email').closest('.field').classList.add('bad');
+    else document.getElementById('rg-email').closest('.field').classList.remove('bad');
+    if(left===0) note.hidden=true; }
+  form.addEventListener('input',check); form.addEventListener('change',check);
+  document.getElementById('rg-email').addEventListener('blur',function(){ this.dataset.touched='1'; check(); });
+  check();
   form.addEventListener('submit',function(e){
     e.preventDefault();
     var ok=true, first=null;
