@@ -233,7 +233,7 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
     <div class="wrap">
       <span class="label intro-tag"><i aria-hidden="true"></i>Gethsemane School of Ministry · Wave 7</span>
       <h1>Register for <em>Wave 7</em></h1>
-      <p>An 8-month discipleship training program. GSOM is free; there is a small administrative fee with a very flexible payment plan, which the team will go through with you at your interview. Fill in your details and the GSOM team will schedule your interview.</p>
+      <p>An 8-month discipleship training program. GSOM is free; there is a small administrative fee you can pay in three monthly instalments (30%, 30%, then 40%), and you can start classes as soon as your first instalment is paid. Fill in your details and the GSOM team will schedule your interview.</p>
     </div>
   </section>
   <div class="wrap layout">
@@ -244,7 +244,7 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
         <div><b>Duration</b><span>8 months</span></div>
         <div><b>Tuition</b><span>Free</span></div>
         <div><b>Admin fee</b><span>₦30,000 online<br>₦25,000 onsite</span></div>
-        <div><b>Payment</b><span>Very flexible payment plan<br>Discussed at your interview</span></div>
+        <div><b>Payment</b><span>30% · 30% · 40% monthly<br>Start after the first</span></div>
         <div><b>Interview</b><span>Scheduled after you register</span></div>
         <div><b>Venue</b><span>Fed Poly, Bida, Niger State</span></div>
         <div><b>Questions</b><span>gsom.gkni@gmail.com<br>+234 703 105 1140</span></div>
@@ -271,11 +271,18 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
         </div>
       </fieldset>
 
+      <fieldset class="opt-set" id="fs-plan">
+        <legend>Payment plan * <small>For the administrative fee</small></legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="plan" value="Full payment"><span class="opt-b"><b>Pay in full</b><small id="pl-full">Choose an attendance mode first</small></span></label>
+          <label class="opt"><input type="radio" name="plan" value="3 monthly instalments"><span class="opt-b"><b>Spread over 3 months</b><small id="pl-split">30%, 30%, then 40%. Start classes after the first.</small></span></label>
+        </div>
+      </fieldset>
 
       <div class="fee-box" id="fee-box" aria-live="polite">
         <div><span>Tuition</span><b>Free</b></div>
         <div><span>Administrative fee</span><b id="fee-amt">—</b></div>
-        <div><span>Payment</span><b id="fee-plan">Flexible plan, discussed at your interview</b></div>
+        <div><span>Payment</span><b id="fee-plan">—</b></div>
       </div>
       <div class="field"><label for="rg-church">Church / fellowship</label><input id="rg-church" name="church"></div>
       <div class="field"><label for="rg-why">Why do you want to join GSOM?</label><textarea id="rg-why" name="reason" rows="3"></textarea></div>
@@ -311,30 +318,34 @@ window.scrollTo(0,0);
 (function(){
   var FORM_ENDPOINT='https://docs.google.com/forms/d/e/1FAIpQLSe5gv8bq7Aj8oOXcIyOi49E6Vr_4lAp4UVrLSKa3XuvknxHig/formResponse';
   var FORM_FIELDS={name:'285079806',phone:'1064544118',email:'8528009',gender:'1111380531',location:'1818690678',
-    mode:'953278658',admin_fee:'260097945',church:'58809244',
+    mode:'953278658',plan:'1103944155',admin_fee:'260097945',payment:'1117196941',church:'58809244',
     reason:'1957100679',interview_availability:'1288723702'};
   function naira(n){ return '₦'+Math.round(n).toLocaleString('en-NG'); }
   function feeVal(){ var m=document.querySelector('input[name=mode]:checked'); return m?+m.getAttribute('data-fee'):0; }
   function feeText(){ var f=feeVal(); return f?naira(f):''; }
-  function updFee(){ var f=feeVal();
+  function split(f){ var a=Math.round(f*0.3/500)*500; return [a,a,f-2*a]; }
+  function updFee(){ var f=feeVal(), p=document.querySelector('input[name=plan]:checked');
     document.getElementById('fee-amt').textContent=f?naira(f):'—';
+    document.getElementById('pl-full').textContent=f?naira(f)+' once':'Choose an attendance mode first';
+    var sp=f?split(f):null; document.getElementById('pl-split').textContent=sp?(sp[0]===sp[2]?'3 × '+naira(sp[0])+' monthly':naira(sp[0])+', '+naira(sp[1])+', '+naira(sp[2])+' monthly'):'30%, 30%, then 40%. Start classes after the first.';
+    document.getElementById('fee-plan').textContent=!p?'—':(!f?p.value:(p.value==='Full payment'?naira(f)+' once':(sp[0]===sp[2]?'3 × '+naira(sp[0]):naira(sp[0])+' + '+naira(sp[1])+' + '+naira(sp[2]))));
     document.querySelectorAll('.opt-set').forEach(function(fs){ if(fs.querySelector('input:checked')) fs.classList.remove('bad'); }); }
-  document.querySelectorAll('input[name=mode]').forEach(function(r){ r.addEventListener('change',updFee); });
+  document.querySelectorAll('input[name=mode],input[name=plan]').forEach(function(r){ r.addEventListener('change',updFee); });
   var form=document.getElementById('reg-form'), done=document.getElementById('reg-done'), note=document.getElementById('reg-note');
   form.addEventListener('submit',function(e){
     e.preventDefault();
     var ok=true, first=null;
     ['rg-name','rg-phone','rg-email','rg-avail'].forEach(function(id){ var el=document.getElementById(id), f=el.closest('.field'); var bad=!el.value.trim()||(el.type==='email'&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value)); f.classList.toggle('bad',bad); if(bad){ ok=false; first=first||el; } });
-    var mode=form.querySelector('input[name=mode]:checked');
-    document.getElementById('fs-mode').classList.toggle('bad',!mode);
-    if(!mode){ ok=false; first=first||form.querySelector('input[name=mode]'); }
+    var mode=form.querySelector('input[name=mode]:checked'), plan=form.querySelector('input[name=plan]:checked');
+    document.getElementById('fs-mode').classList.toggle('bad',!mode); document.getElementById('fs-plan').classList.toggle('bad',!plan);
+    if(!mode||!plan){ ok=false; first=first||(!mode?form.querySelector('input[name=mode]'):form.querySelector('input[name=plan]')); }
     var iv=document.getElementById('rg-iv');
     var agree=document.getElementById('rg-agree');
-    if(!ok){ note.hidden=false; note.textContent='Please fill in your name, phone, a valid email, your attendance mode and when you are free for the interview.'; first.focus(); return; }
+    if(!ok){ note.hidden=false; note.textContent='Please fill in your name, phone, a valid email, your attendance mode, a payment plan and when you are free for the interview.'; first.focus(); return; }
     if(!iv.checked){ note.hidden=false; note.textContent='Please confirm you understand you will be scheduled for an interview.'; iv.focus(); return; }
     if(!agree.checked){ note.hidden=false; note.textContent='Please agree to the terms and conditions to continue.'; agree.focus(); return; }
     var data={}; Array.prototype.forEach.call(form.elements,function(el){ if(el.name && (el.type!=='radio'||el.checked)) data[el.name]=el.value.trim(); });
-    data.admin_fee=feeText(); delete data.plan; delete data.payment;
+    data.admin_fee=feeText(); data.payment=document.getElementById('fee-plan').textContent;
     var btn=document.getElementById('rg-submit');
     function success(msg){ form.hidden=true; done.hidden=false; document.getElementById('reg-done-msg').textContent=msg; form.reset(); updFee(); window.scrollTo({top:0,behavior:'smooth'}); }
     if(!FORM_ENDPOINT){ document.getElementById('reg-done-title').textContent='Form preview'; success('Thank you, '+data.name.split(' ')[0]+'. Your interview would be scheduled next. (Preview: this form is not connected to the GSOM inbox yet, so no email was sent.)'); return; }
