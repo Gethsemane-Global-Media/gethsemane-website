@@ -242,7 +242,7 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
     <div class="wrap">
       <span class="label intro-tag"><i aria-hidden="true"></i>Gethsemane School of Ministry · Wave 7</span>
       <h1>Register for <em>Wave 7</em></h1>
-      <p>An 8-month discipleship training program. GSOM is free; there is a small administrative fee. Fill in your details and we will email you your interview date and Google Meet link straight away. Payment options are explained at the interview, and your admission letter includes a link to pay on the GSOM learning platform.</p>
+      <p>An 8-month discipleship training program. Fill in your details and we will email you your interview date and Google Meet link straight away. Everything else about the program is explained at your interview and in your admission letter.</p>
     </div>
   </section>
   <div class="wrap layout">
@@ -251,9 +251,6 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
       <div class="facts">
         <div><b>Registration closes</b><span>Saturday, 30 January 2027</span></div>
         <div><b>Duration</b><span>8 months</span></div>
-        <div><b>Tuition</b><span>Free</span></div>
-        <div><b>Admin fee</b><span>₦30,000 online<br>₦25,000 onsite</span></div>
-        <div><b>Payment</b><span>Explained at your interview<br>Paid on the GSOM learning platform</span></div>
         <div><b>Interview</b><span>On Google Meet<br>Date emailed when you register</span></div>
         <div><b>Venue</b><span>Fed Poly, Bida, Niger State</span></div>
         <div><b>Questions</b><span>gsom.gkni@gmail.com<br>+234 703 105 1140</span></div>
@@ -275,16 +272,12 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
       <fieldset class="opt-set" id="fs-mode">
         <legend>Attendance mode * <small>Choose one</small></legend>
         <div class="opts">
-          <label class="opt"><input type="radio" name="mode" value="Online" data-fee="30000"><span class="opt-b"><b>Online</b><small>Join classes from anywhere</small><em>₦30,000 admin fee</em></span></label>
-          <label class="opt"><input type="radio" name="mode" value="Onsite (Fed Poly, Bida)" data-fee="25000"><span class="opt-b"><b>Onsite</b><small>Physical classes at Fed Poly, Bida</small><em>₦25,000 admin fee</em></span></label>
+          <label class="opt"><input type="radio" name="mode" value="Online"><span class="opt-b"><b>Online</b><small>Join classes from anywhere</small></span></label>
+          <label class="opt"><input type="radio" name="mode" value="Onsite (Fed Poly, Bida)"><span class="opt-b"><b>Onsite</b><small>Physical classes at Fed Poly, Bida</small></span></label>
         </div>
       </fieldset>
 
 
-      <div class="fee-box" id="fee-box" aria-live="polite">
-        <div><span>Tuition</span><b>Free</b></div>
-        <div><span>Administrative fee</span><b id="fee-amt">—</b></div>
-      </div>
       <div class="field"><label for="rg-church">Church / fellowship</label><input id="rg-church" name="church"></div>
       <div class="field"><label for="rg-why">Why do you want to join GSOM?</label><textarea id="rg-why" name="reason" rows="3"></textarea></div>
       <div class="interview">
@@ -295,7 +288,7 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
         <select id="rg-avail" name="interview_availability" required><option value="">Select</option><option>Weekday mornings</option><option>Weekday afternoons</option><option>Weekday evenings</option><option>Weekends</option></select>
       </div>
       <label class="check"><input type="checkbox" id="rg-iv" required> I understand I will be scheduled for an interview.</label>
-      <label class="check"><input type="checkbox" id="rg-agree" required> <span>I agree to the <a href="terms.html" target="_blank" rel="noopener">GSOM terms and conditions</a>, including the administrative fee.</span></label>
+      <label class="check"><input type="checkbox" id="rg-agree" required> <span>I agree to the <a href="terms.html" target="_blank" rel="noopener">GSOM terms and conditions</a>.</span></label>
       <button class="pill ember" type="submit" id="rg-submit">Submit registration<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></button>
       <p class="reg-note" id="reg-note" role="status" hidden></p>
     </form>
@@ -307,8 +300,8 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
       <a class="pill ember wa-btn" id="wa-btn" href="https://wa.me/2347031051140" target="_blank" rel="noopener"><span id="wa-t">Message GSOM on WhatsApp</span><span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
       <ol class="next-steps" aria-label="What happens next">
         <li><b>Interview</b><span>On Google Meet, at the date and time in your email.</span></li>
-        <li><b>Admission letter</b><span>Sent after a successful interview, with payment details and a link to the GSOM learning platform.</span></li>
-        <li><b>First payment</b><span>Pay on the learning platform. This signs you in as a Wave 7 student.</span></li>
+        <li><b>Admission letter</b><span>Sent after a successful interview, with everything you need to get started.</span></li>
+        <li><b>Join the learning platform</b><span>Your admission letter has the link. This signs you in as a Wave 7 student.</span></li>
         <li><b>Classes begin</b><span>February 2027.</span></li>
       </ol>
       <a class="done-back" href="gsom.html#top">Back to GSOM</a>
@@ -330,14 +323,9 @@ window.scrollTo(0,0);
   var WHATSAPP_GROUP='https://chat.whatsapp.com/GO94IwgfcPhAXIfWWlEmf1';
   if(WHATSAPP_GROUP){ document.getElementById('wa-btn').href=WHATSAPP_GROUP; document.getElementById('wa-t').textContent='Join the Wave 7 WhatsApp group'; }
   var FORM_FIELDS={name:'285079806',phone:'1064544118',email:'8528009',gender:'1111380531',location:'1818690678',
-    mode:'953278658',admin_fee:'260097945',church:'58809244',
+    mode:'953278658',church:'58809244',
     reason:'1957100679',interview_availability:'1288723702'};
-  function naira(n){ return '₦'+Math.round(n).toLocaleString('en-NG'); }
-  function feeVal(){ var m=document.querySelector('input[name=mode]:checked'); return m?+m.getAttribute('data-fee'):0; }
-  function feeText(){ var f=feeVal(); return f?naira(f):''; }
-  function updFee(){ var f=feeVal();
-    document.getElementById('fee-amt').textContent=f?naira(f):'—';
-    document.querySelectorAll('.opt-set').forEach(function(fs){ if(fs.querySelector('input:checked')) fs.classList.remove('bad'); }); }
+  function updFee(){ document.querySelectorAll('.opt-set').forEach(function(fs){ if(fs.querySelector('input:checked')) fs.classList.remove('bad'); }); }
   document.querySelectorAll('input[name=mode]').forEach(function(r){ r.addEventListener('change',updFee); });
   var form=document.getElementById('reg-form'), done=document.getElementById('reg-done'), note=document.getElementById('reg-note');
   form.addEventListener('submit',function(e){
@@ -353,7 +341,6 @@ window.scrollTo(0,0);
     if(!iv.checked){ note.hidden=false; note.textContent='Please confirm you understand you will be scheduled for an interview.'; iv.focus(); return; }
     if(!agree.checked){ note.hidden=false; note.textContent='Please agree to the terms and conditions to continue.'; agree.focus(); return; }
     var data={}; Array.prototype.forEach.call(form.elements,function(el){ if(el.name && (el.type!=='radio'||el.checked)) data[el.name]=el.value.trim(); });
-    data.admin_fee=feeText();
     var btn=document.getElementById('rg-submit');
     function success(msg){ form.hidden=true; done.hidden=false; document.getElementById('reg-done-msg').textContent=msg; form.reset(); updFee(); window.scrollTo({top:0,behavior:'smooth'}); }
     if(!FORM_ENDPOINT){ document.getElementById('reg-done-title').textContent='Form preview'; success('Thank you, '+data.name.split(' ')[0]+'. Your interview would be scheduled next. (Preview: this form is not connected to the GSOM inbox yet, so no email was sent.)'); return; }
