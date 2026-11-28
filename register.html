@@ -104,6 +104,15 @@ section{padding-block:clamp(90px,11vw,150px)}
 .reg-done{justify-items:start}
 .reg-done .tick{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--night);font-size:1.5rem}
 .reg-done p{color:var(--muted)}
+.reg-done .done-spam{font-size:.9rem;margin-top:-8px}
+.field .hint{font-size:.85rem;color:var(--muted)}
+.check a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.next-steps{list-style:none;counter-reset:st;margin:8px 0 0;padding:0;display:grid;gap:12px;width:100%;border-top:1px solid var(--line);padding-top:18px}
+.next-steps li{counter-increment:st;display:grid;grid-template-columns:34px 1fr;column-gap:12px;align-items:start}
+.next-steps li::before{content:counter(st);grid-row:span 2;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--paper);border:1px solid var(--line);font-weight:700;color:var(--oxblood)}
+.next-steps b{color:var(--ink)}
+.next-steps span{color:var(--muted);font-size:.95rem}
+.done-back{color:var(--muted);font-size:.92rem}
 .foot{padding-block:28px;border-top:1px solid var(--line);font-size:.9rem;color:var(--muted)}
 .foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 @media (max-width:860px){.layout{grid-template-columns:1fr}.aside{position:static;order:2}.aside .ph{display:none}}
@@ -128,7 +137,7 @@ section{padding-block:clamp(90px,11vw,150px)}
 .opt input:checked + .opt-b::before{border-color:var(--ember);box-shadow:inset 0 0 0 5px var(--ember)}
 .opt input:focus-visible + .opt-b{outline:2px solid var(--ember);outline-offset:3px}
 .opt-set.bad .opt-b{border-color:#C0392B}
-.fee-box{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.fee-box{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--line);border-radius:16px;overflow:hidden}
 .fee-box div{display:grid;gap:4px;padding:14px 16px;background:var(--paper)}
 .fee-box div+div{border-left:1px solid var(--line)}
 .fee-box span{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -233,7 +242,7 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
     <div class="wrap">
       <span class="label intro-tag"><i aria-hidden="true"></i>Gethsemane School of Ministry · Wave 7</span>
       <h1>Register for <em>Wave 7</em></h1>
-      <p>An 8-month discipleship training program. GSOM is free; there is a small administrative fee you can pay in three monthly instalments (30%, 30%, then 40%), and you can start classes as soon as your first instalment is paid. Fill in your details and the GSOM team will schedule your interview.</p>
+      <p>An 8-month discipleship training program. GSOM is free; there is a small administrative fee. Fill in your details and we will email you your interview date and Google Meet link straight away. Payment options are explained at the interview, and your admission letter includes a link to pay on the GSOM learning platform.</p>
     </div>
   </section>
   <div class="wrap layout">
@@ -244,8 +253,8 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
         <div><b>Duration</b><span>8 months</span></div>
         <div><b>Tuition</b><span>Free</span></div>
         <div><b>Admin fee</b><span>₦30,000 online<br>₦25,000 onsite</span></div>
-        <div><b>Payment</b><span>30% · 30% · 40% monthly<br>Start after the first</span></div>
-        <div><b>Interview</b><span>Scheduled after you register</span></div>
+        <div><b>Payment</b><span>Explained at your interview<br>Paid on the GSOM learning platform</span></div>
+        <div><b>Interview</b><span>On Google Meet<br>Date emailed when you register</span></div>
         <div><b>Venue</b><span>Fed Poly, Bida, Niger State</span></div>
         <div><b>Questions</b><span>gsom.gkni@gmail.com<br>+234 703 105 1140</span></div>
       </div>
@@ -271,38 +280,38 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
         </div>
       </fieldset>
 
-      <fieldset class="opt-set" id="fs-plan">
-        <legend>Payment plan * <small>For the administrative fee</small></legend>
-        <div class="opts">
-          <label class="opt"><input type="radio" name="plan" value="Full payment"><span class="opt-b"><b>Pay in full</b><small id="pl-full">Choose an attendance mode first</small></span></label>
-          <label class="opt"><input type="radio" name="plan" value="3 monthly instalments"><span class="opt-b"><b>Spread over 3 months</b><small id="pl-split">30%, 30%, then 40%. Start classes after the first.</small></span></label>
-        </div>
-      </fieldset>
 
       <div class="fee-box" id="fee-box" aria-live="polite">
         <div><span>Tuition</span><b>Free</b></div>
         <div><span>Administrative fee</span><b id="fee-amt">—</b></div>
-        <div><span>Payment</span><b id="fee-plan">—</b></div>
       </div>
       <div class="field"><label for="rg-church">Church / fellowship</label><input id="rg-church" name="church"></div>
       <div class="field"><label for="rg-why">Why do you want to join GSOM?</label><textarea id="rg-why" name="reason" rows="3"></textarea></div>
       <div class="interview">
         <span class="iv-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-        <div><b>You will be scheduled for an interview</b><p>After you register, the GSOM team will contact you to arrange a short interview before classes begin.</p></div>
+        <div><b>Your interview is booked automatically</b><p>As soon as you submit, we email you your interview date and a Google Meet link. Interviews are short and held online.</p></div>
       </div>
-      <div class="field"><label for="rg-avail">When are you usually free for the interview? *</label>
+      <div class="field"><label for="rg-avail">When are you usually free for the interview? *</label><small class="hint">We use this to pick your interview time.</small>
         <select id="rg-avail" name="interview_availability" required><option value="">Select</option><option>Weekday mornings</option><option>Weekday afternoons</option><option>Weekday evenings</option><option>Weekends</option></select>
       </div>
       <label class="check"><input type="checkbox" id="rg-iv" required> I understand I will be scheduled for an interview.</label>
-      <label class="check"><input type="checkbox" id="rg-agree" required> I agree to the GSOM terms and conditions, including the administrative fee.</label>
+      <label class="check"><input type="checkbox" id="rg-agree" required> <span>I agree to the <a href="terms.html" target="_blank" rel="noopener">GSOM terms and conditions</a>, including the administrative fee.</span></label>
       <button class="pill ember" type="submit" id="rg-submit">Submit registration<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></button>
       <p class="reg-note" id="reg-note" role="status" hidden></p>
     </form>
       <div class="reg-done" id="reg-done" hidden>
       <span class="tick" aria-hidden="true">✓</span>
       <h2 id="reg-done-title">You’re registered</h2>
-      <p id="reg-done-msg">Thank you. The GSOM team has your details and will contact you to schedule your interview.</p>
-      <a class="pill ember" href="gsom.html#top">Back to GSOM<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
+      <p id="reg-done-msg">Thank you. Check your email in the next few minutes for your interview date and Google Meet link.</p>
+      <p class="done-spam">Can't find it? Look in your Spam or Promotions folder.</p>
+      <a class="pill ember wa-btn" id="wa-btn" href="https://wa.me/2347031051140" target="_blank" rel="noopener"><span id="wa-t">Message GSOM on WhatsApp</span><span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
+      <ol class="next-steps" aria-label="What happens next">
+        <li><b>Interview</b><span>On Google Meet, at the date and time in your email.</span></li>
+        <li><b>Admission letter</b><span>Sent after a successful interview, with payment details and a link to the GSOM learning platform.</span></li>
+        <li><b>First payment</b><span>Pay on the learning platform. This signs you in as a Wave 7 student.</span></li>
+        <li><b>Classes begin</b><span>February 2027.</span></li>
+      </ol>
+      <a class="done-back" href="gsom.html#top">Back to GSOM</a>
     </div>
     </div>
   </div>
@@ -317,42 +326,41 @@ window.scrollTo(0,0);
    Google does not allow reading the reply from another site, so a sent request counts as success. */
 (function(){
   var FORM_ENDPOINT='https://docs.google.com/forms/d/e/1FAIpQLSe5gv8bq7Aj8oOXcIyOi49E6Vr_4lAp4UVrLSKa3XuvknxHig/formResponse';
+  /* Wave 7 WhatsApp group invite link (from Elihu). If it is emptied, the button opens a chat with the GSOM line. */
+  var WHATSAPP_GROUP='https://chat.whatsapp.com/GO94IwgfcPhAXIfWWlEmf1';
+  if(WHATSAPP_GROUP){ document.getElementById('wa-btn').href=WHATSAPP_GROUP; document.getElementById('wa-t').textContent='Join the Wave 7 WhatsApp group'; }
   var FORM_FIELDS={name:'285079806',phone:'1064544118',email:'8528009',gender:'1111380531',location:'1818690678',
-    mode:'953278658',plan:'1103944155',admin_fee:'260097945',payment:'1117196941',church:'58809244',
+    mode:'953278658',admin_fee:'260097945',church:'58809244',
     reason:'1957100679',interview_availability:'1288723702'};
   function naira(n){ return '₦'+Math.round(n).toLocaleString('en-NG'); }
   function feeVal(){ var m=document.querySelector('input[name=mode]:checked'); return m?+m.getAttribute('data-fee'):0; }
   function feeText(){ var f=feeVal(); return f?naira(f):''; }
-  function split(f){ var a=Math.round(f*0.3/500)*500; return [a,a,f-2*a]; }
-  function updFee(){ var f=feeVal(), p=document.querySelector('input[name=plan]:checked');
+  function updFee(){ var f=feeVal();
     document.getElementById('fee-amt').textContent=f?naira(f):'—';
-    document.getElementById('pl-full').textContent=f?naira(f)+' once':'Choose an attendance mode first';
-    var sp=f?split(f):null; document.getElementById('pl-split').textContent=sp?(sp[0]===sp[2]?'3 × '+naira(sp[0])+' monthly':naira(sp[0])+', '+naira(sp[1])+', '+naira(sp[2])+' monthly'):'30%, 30%, then 40%. Start classes after the first.';
-    document.getElementById('fee-plan').textContent=!p?'—':(!f?p.value:(p.value==='Full payment'?naira(f)+' once':(sp[0]===sp[2]?'3 × '+naira(sp[0]):naira(sp[0])+' + '+naira(sp[1])+' + '+naira(sp[2]))));
     document.querySelectorAll('.opt-set').forEach(function(fs){ if(fs.querySelector('input:checked')) fs.classList.remove('bad'); }); }
-  document.querySelectorAll('input[name=mode],input[name=plan]').forEach(function(r){ r.addEventListener('change',updFee); });
+  document.querySelectorAll('input[name=mode]').forEach(function(r){ r.addEventListener('change',updFee); });
   var form=document.getElementById('reg-form'), done=document.getElementById('reg-done'), note=document.getElementById('reg-note');
   form.addEventListener('submit',function(e){
     e.preventDefault();
     var ok=true, first=null;
     ['rg-name','rg-phone','rg-email','rg-avail'].forEach(function(id){ var el=document.getElementById(id), f=el.closest('.field'); var bad=!el.value.trim()||(el.type==='email'&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value)); f.classList.toggle('bad',bad); if(bad){ ok=false; first=first||el; } });
-    var mode=form.querySelector('input[name=mode]:checked'), plan=form.querySelector('input[name=plan]:checked');
-    document.getElementById('fs-mode').classList.toggle('bad',!mode); document.getElementById('fs-plan').classList.toggle('bad',!plan);
-    if(!mode||!plan){ ok=false; first=first||(!mode?form.querySelector('input[name=mode]'):form.querySelector('input[name=plan]')); }
+    var mode=form.querySelector('input[name=mode]:checked');
+    document.getElementById('fs-mode').classList.toggle('bad',!mode);
+    if(!mode){ ok=false; first=first||form.querySelector('input[name=mode]'); }
     var iv=document.getElementById('rg-iv');
     var agree=document.getElementById('rg-agree');
-    if(!ok){ note.hidden=false; note.textContent='Please fill in your name, phone, a valid email, your attendance mode, a payment plan and when you are free for the interview.'; first.focus(); return; }
+    if(!ok){ note.hidden=false; note.textContent='Please fill in your name, phone, a valid email, your attendance mode and when you are free for the interview.'; first.focus(); return; }
     if(!iv.checked){ note.hidden=false; note.textContent='Please confirm you understand you will be scheduled for an interview.'; iv.focus(); return; }
     if(!agree.checked){ note.hidden=false; note.textContent='Please agree to the terms and conditions to continue.'; agree.focus(); return; }
     var data={}; Array.prototype.forEach.call(form.elements,function(el){ if(el.name && (el.type!=='radio'||el.checked)) data[el.name]=el.value.trim(); });
-    data.admin_fee=feeText(); data.payment=document.getElementById('fee-plan').textContent;
+    data.admin_fee=feeText();
     var btn=document.getElementById('rg-submit');
     function success(msg){ form.hidden=true; done.hidden=false; document.getElementById('reg-done-msg').textContent=msg; form.reset(); updFee(); window.scrollTo({top:0,behavior:'smooth'}); }
     if(!FORM_ENDPOINT){ document.getElementById('reg-done-title').textContent='Form preview'; success('Thank you, '+data.name.split(' ')[0]+'. Your interview would be scheduled next. (Preview: this form is not connected to the GSOM inbox yet, so no email was sent.)'); return; }
     btn.disabled=true; note.hidden=false; note.textContent='Sending…';
     var body=new URLSearchParams(); Object.keys(FORM_FIELDS).forEach(function(k){ if(data[k]) body.append('entry.'+FORM_FIELDS[k],data[k]); });
     fetch(FORM_ENDPOINT,{method:'POST',mode:'no-cors',body:body})
-      .then(function(){ success('Thank you, '+data.name.split(' ')[0]+'. The GSOM team has your details and will contact you to schedule your interview.'); })
+      .then(function(){ success('Thank you, '+data.name.split(' ')[0]+'. Check your email ('+data.email+') in the next few minutes for your interview date and Google Meet link.'); })
       .catch(function(){ note.textContent='We could not send your registration. Please check your connection and try again, or email gsom.gkni@gmail.com.'; })
       .then(function(){ btn.disabled=false; });
   });
@@ -519,5 +527,6 @@ footer a:not(.pill):hover{background-size:100% 1px}
 })();
 </script>
 
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

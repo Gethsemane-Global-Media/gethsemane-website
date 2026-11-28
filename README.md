@@ -13,6 +13,7 @@ Static website for Gethsemane Kingdom Network International (GKNI) and its train
 | `story.html` | Our story |
 | `gsom.html` | Gethsemane School of Ministry: courses, training, values, Wave 7 (registration closes 30 January 2027) |
 | `register.html` | GSOM Wave 7 registration form |
+| `terms.html` | GSOM terms and conditions (linked from the registration form) |
 
 Images live in `img/` (GSOM images in `img/gsom/`).
 
