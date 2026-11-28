@@ -342,12 +342,13 @@ window.scrollTo(0,0);
     if(!agree.checked){ note.hidden=false; note.textContent='Please agree to the terms and conditions to continue.'; agree.focus(); return; }
     var data={}; Array.prototype.forEach.call(form.elements,function(el){ if(el.name && (el.type!=='radio'||el.checked)) data[el.name]=el.value.trim(); });
     var btn=document.getElementById('rg-submit');
+    function welcome(){ try{ sessionStorage.setItem('gsomReg',JSON.stringify({first:data.name.split(' ')[0],email:data.email})); }catch(x){} location.href='welcome.html'; }
     function success(msg){ form.hidden=true; done.hidden=false; document.getElementById('reg-done-msg').textContent=msg; form.reset(); updFee(); window.scrollTo({top:0,behavior:'smooth'}); }
     if(!FORM_ENDPOINT){ document.getElementById('reg-done-title').textContent='Form preview'; success('Thank you, '+data.name.split(' ')[0]+'. Your interview would be scheduled next. (Preview: this form is not connected to the GSOM inbox yet, so no email was sent.)'); return; }
     btn.disabled=true; note.hidden=false; note.textContent='Sending…';
     var body=new URLSearchParams(); Object.keys(FORM_FIELDS).forEach(function(k){ if(data[k]) body.append('entry.'+FORM_FIELDS[k],data[k]); });
     fetch(FORM_ENDPOINT,{method:'POST',mode:'no-cors',body:body})
-      .then(function(){ success('Thank you, '+data.name.split(' ')[0]+'. Check your email ('+data.email+') in the next few minutes for your interview date and Google Meet link.'); })
+      .then(function(){ welcome(); })
       .catch(function(){ note.textContent='We could not send your registration. Please check your connection and try again, or email gsom.gkni@gmail.com.'; })
       .then(function(){ btn.disabled=false; });
   });
