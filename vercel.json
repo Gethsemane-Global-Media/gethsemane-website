@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/gsom", "destination": "/gsom.html", "permanent": false },
+    { "source": "/gsom/", "destination": "/gsom.html", "permanent": false }
+  ]
+}
