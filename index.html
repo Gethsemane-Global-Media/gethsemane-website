@@ -948,7 +948,7 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
       <img class="logo-h" src="img/logo-horizontal.png" alt="Gethsemane Kingdom Network Int’l" width="760" height="193">
     </a>
     <nav class="nav-links" aria-label="Sections">
-      <a href="about.html">About</a><a href="sermons.html">Sermons</a><a href="arms.html">Our arms</a><a href="gsom.html#top">GSOM</a><a href="#give">Give</a>
+      <a href="about.html">About</a><a href="sermons.html">Sermons</a><a href="arms.html">Our arms</a><a href="gsom.html#top">GSOM</a><a href="register.html">Apply to GSOM</a><a href="#give">Give</a>
     </nav>
     <div class="nav-right">
       <span class="clock" aria-live="polite"><i aria-hidden="true"></i><span id="clock-text">Sunday Service · 5:00 PM</span></span>
@@ -969,6 +969,7 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
       <li><a href="sermons.html">Sermons</a></li>
       <li><a href="arms.html">Our arms</a></li>
       <li><a href="gsom.html#top">GSOM</a></li>
+      <li><a href="register.html">Apply to GSOM</a></li>
       <li><a href="#give">Give</a></li>
     </ul>
     <a class="menu-cta" href="#visit"><i aria-hidden="true"></i>plan a visit</a></nav>
@@ -993,6 +994,7 @@ html.pt-start .pt-curtain{transition:none;transform:translateY(100%)}
     <div class="h2-cta">
       <a class="pill light" href="#visit">Plan a visit<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
       <a class="pill ghost" href="sermons.html">Watch sermons<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
+      <a class="pill ghost" href="register.html">Apply to GSOM · Wave 7<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
     </div>
     </div>
   </div>
@@ -1862,4 +1864,5 @@ document.addEventListener('click',function(e){var b=e.target.closest&&e.target.c
 function ok(){b.textContent='Copied';b.classList.add('done');setTimeout(function(){b.textContent='Copy';b.classList.remove('done')},1800)}
 if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v).then(ok,function(){})}else{var t=document.createElement('textarea');t.value=v;document.body.appendChild(t);t.select();try{document.execCommand('copy');ok()}catch(x){}document.body.removeChild(t)}});
 </script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body></html>
