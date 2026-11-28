@@ -194,6 +194,52 @@ section{padding-block:clamp(90px,11vw,150px)}
 @media (max-width:980px){.values{grid-template-columns:1fr 1fr}.value,.value:nth-child(4),.value:nth-child(5){grid-column:span 1}.value:nth-child(5){grid-column:1/-1}}
 @media (max-width:560px){.values{grid-template-columns:1fr}.value:nth-child(n){grid-column:auto}}
 
+
+/* ---------- Why GSOM ---------- */
+.why{background:var(--oxblood);color:var(--white);position:relative;overflow:hidden}
+.why::before{content:"WHY";position:absolute;right:-2vw;top:50%;transform:translateY(-50%);font-weight:800;font-size:clamp(9rem,26vw,24rem);line-height:.8;letter-spacing:-.06em;color:rgba(166,212,90,.06);pointer-events:none}
+.why .label{color:rgba(251,249,245,.6)}
+.why-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(36px,6vw,90px);align-items:start;position:relative}
+.why-head{display:grid;gap:22px;position:sticky;top:110px}
+.why-head h2{font-size:clamp(3rem,7vw,6rem);line-height:.92;letter-spacing:-.05em;font-weight:800}
+.why-head h2 em{color:var(--gold)}
+.why-head p{color:rgba(251,249,245,.75);font-size:1.12rem;max-width:26rem}
+.why-list{list-style:none;margin:0;padding:0;display:grid;gap:14px;counter-reset:w}
+.why-list li{counter-increment:w;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;padding:clamp(22px,3vw,30px);border-radius:18px;background:rgba(251,249,245,.05);border:1px solid rgba(251,249,245,.1);transition:background .4s,transform .6s var(--ease),border-color .4s}
+.why-list li:hover{background:rgba(166,212,90,.09);border-color:rgba(166,212,90,.35);transform:translateX(6px)}
+.why-list li::before{content:"0" counter(w);font-weight:800;font-size:.8rem;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--oxblood)}
+.why-list h3{font-size:clamp(1.25rem,2.2vw,1.6rem);margin-bottom:6px;font-weight:700}
+.why-list p{color:rgba(251,249,245,.72)}
+@media (max-width:860px){.why-grid{grid-template-columns:1fr}.why-head{position:static}}
+
+/* ---------- Transformation quote ---------- */
+.conviction{background:var(--paper);text-align:center;position:relative;overflow:hidden}
+.conviction .wrap{display:grid;gap:30px;justify-items:center}
+.conviction .mark{font-size:clamp(6rem,14vw,11rem);line-height:.5;color:var(--gold);font-weight:800;height:.45em}
+.conviction blockquote{isolation:isolate;margin:0;font-size:clamp(2rem,5.6vw,4.6rem);line-height:1.08;letter-spacing:-.035em;font-weight:800;max-width:62rem;color:var(--oxblood);text-wrap:balance}
+.conviction blockquote em{position:relative;color:var(--ember);white-space:nowrap}
+.conviction blockquote em::after{content:"";position:absolute;left:0;right:0;bottom:.04em;height:.14em;background:var(--gold);opacity:.55;border-radius:4px;z-index:-1;transform-origin:left;transform:scaleX(0);transition:transform 1.2s var(--ease) .3s}
+.conviction.on blockquote em::after{transform:scaleX(1)}
+.conviction cite{font-style:normal;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- FAQ ---------- */
+.faq-sec{background:var(--parch)}
+.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(36px,6vw,90px);align-items:start}
+.faq-head{display:grid;gap:20px;position:sticky;top:110px}
+.faq-head .title em{color:var(--ember)}
+.faq-head p{color:var(--muted);max-width:24rem}
+.faq{display:grid;gap:10px}
+.faq details{background:var(--white);border:1px solid var(--line);border-radius:16px;transition:border-color .3s,box-shadow .3s}
+.faq details[open]{border-color:var(--ember);box-shadow:0 18px 40px -28px rgba(30,58,8,.45)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:20px 22px;font-weight:600;font-size:1.05rem;line-height:1.35}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{flex:none;width:32px;height:32px;border-radius:50%;background:var(--paper);display:grid;place-items:center;transition:transform .4s var(--ease),background .3s}
+.faq summary i::before{content:"+";font-style:normal;font-size:1.2rem;line-height:1;color:var(--ember)}
+.faq details[open] summary i{transform:rotate(45deg);background:var(--gold)}
+.faq .ans{padding:0 22px 22px;color:var(--muted);display:grid;gap:10px}
+.faq .ans b{color:var(--ink)}
+@media (max-width:860px){.faq-grid{grid-template-columns:1fr}.faq-head{position:static}}
+
 /* ---------- Online & physical ---------- */
 .mode{padding-block:0;display:grid;grid-template-columns:1fr 1fr;background:var(--parch)}
 .mode-photo{min-height:clamp(380px,48vw,640px);overflow:hidden}
@@ -429,7 +475,7 @@ try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }cat
 <header class="site-header" id="site-header">
   <div class="wrap nav">
     <a class="brand" href="#top" aria-label="GSOM, Gethsemane School of Ministry, home"><img class="nav-logo" src="img/gsom/logo.png" alt="GSOM, Gethsemane School of Ministry" width="220" height="240"></a>
-    <nav class="links" aria-label="Sections"><a href="#about">About</a><a href="#courses">Courses</a><a href="#training">Training</a><a href="#values">Values</a><a href="#testimony">Testimony</a><a href="#contact">Contact</a></nav>
+    <nav class="links" aria-label="Sections"><a href="#about">About</a><a href="#why">Why GSOM</a><a href="#courses">Courses</a><a href="#training">Training</a><a href="#values">Values</a><a href="#faq">FAQ</a><a href="#testimony">Testimony</a><a href="#contact">Contact</a></nav>
     <div class="nav-right">
       <a class="pill gold" href="register.html"><span class="t">Apply for Wave 7</span><span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
     </div>
@@ -483,6 +529,31 @@ try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }cat
   </div>
 </section>
 
+<section class="why" id="why" aria-labelledby="why-h">
+  <div class="wrap why-grid">
+    <div class="why-head">
+      <span class="label">Who GSOM is for</span>
+      <h2 id="why-h">Why <em>GSOM?</em></h2>
+      <p>This school exists to disciple people who are hungry for more of God and ready to be shaped by Him.</p>
+      <a class="pill gold" href="register.html" style="justify-self:start">Apply for Wave 7<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
+    </div>
+    <ol class="why-list">
+      <li><div><h3>Grow in God</h3><p>For those who desire to grow in their relationship with God and understand His will for their lives.</p></div></li>
+      <li><div><h3>Discover yourself</h3><p>For those who want to discover who they are and become a better version of themselves.</p></div></li>
+      <li><div><h3>Be effective everywhere</h3><p>For those who want to be effective in the Kingdom, in their secular work and in the world.</p></div></li>
+      <li><div><h3>Reveal Jesus</h3><p>For those committed to seeing Jesus revealed and glorified in and through their lives.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="conviction" id="quote" aria-label="Our conviction">
+  <div class="wrap">
+    <span class="mark" aria-hidden="true">“</span>
+    <blockquote>The Greatest need of a Believer is <em>Transformation</em> then <em>Empowerment</em>.</blockquote>
+    <cite>We can give that to you · GSOM</cite>
+  </div>
+</section>
+
 <section class="courses" id="courses">
   <div class="wrap">
     <div class="head">
@@ -507,7 +578,7 @@ try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }cat
     <div class="become-copy">
       <span class="label">Enroll for Wave 7</span>
       <h2>Become a <em>student</em></h2>
-      <p>The greatest need of a believer in Christ is <b>transformation</b>. By the help of God, we can give that to you.</p>
+      <p>Registration for Wave 7 is open until <b>Saturday, 30 January 2027</b>. It takes a few minutes, and your interview is booked the moment you submit.</p>
       <a class="pill ember" href="register.html" style="justify-self:start">Enroll for Wave 7<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
     </div>
     <figure class="become-photo" style="margin:0"><img src="img/gsom/volunteer.jpg" alt="A graduating GSOM class together" loading="lazy"></figure>
@@ -553,9 +624,28 @@ try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }cat
   <div class="mode-copy">
     <span class="label">Classes hold both</span>
     <h2>Online &amp; <em>physical</em></h2>
-    <div class="chips"><span>8 months</span><span>Discipleship training</span><span>Fed Poly, Bida</span></div>
+    <div class="chips"><span>8 months</span><span>Onsite at Fed Poly, Bida</span><span>Online for those outside Bida</span></div>
     <a class="pill ember" href="register.html">Enroll for Wave 7<span class="ar"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
     <p class="tc">Terms and conditions apply.</p>
+  </div>
+</section>
+
+<section class="faq-sec" id="faq" aria-labelledby="faq-h">
+  <div class="wrap faq-grid">
+    <div class="faq-head">
+      <span class="label">Questions</span>
+      <h2 class="title" id="faq-h">Frequently asked <em>questions</em></h2>
+      <p>Still unsure? Ask in the Wave 7 WhatsApp group after you register, or contact us at gsom.gkni@gmail.com or +234 703 105 1140.</p>
+    </div>
+    <div class="faq">
+      <details open><summary>How do I join GSOM?<i aria-hidden="true"></i></summary><div class="ans"><p>Register on this website. As soon as you submit, we email you your <b>interview date and a Google Meet link</b>, and you can join the Wave 7 applicants’ WhatsApp group straight away.</p></div></details>
+      <details><summary>What happens at the interview?<i aria-hidden="true"></i></summary><div class="ans"><p>A short, friendly conversation of about 15 minutes on Google Meet. We want to hear your story, your walk with God and why you want to join. Applicants who pass the interview receive an <b>admission letter</b>.</p></div></details>
+      <details><summary>Does GSOM cost anything?<i aria-hidden="true"></i></summary><div class="ans"><p><b>Tuition is free.</b> There is a one-time administrative fee that helps the program run well.</p><p>We explain it at your interview, and your admission letter gives the details and a link to pay on the <b>GSOM learning platform</b>, where it can be spread over instalments. Nothing is paid when you register, and GSOM never asks you to pay into a personal account.</p></div></details>
+      <details><summary>Should I choose online or onsite?<i aria-hidden="true"></i></summary><div class="ans"><p><b>If you live in Bida, you must attend onsite</b>, at Fed Poly, Bida. Online classes are strictly for students who live outside Bida.</p></div></details>
+      <details><summary>How long is the program, and when does it start?<i aria-hidden="true"></i></summary><div class="ans"><p>About 8 months. Wave 7 registration closes on <b>30 January 2027</b> and classes begin in <b>February 2027</b>.</p></div></details>
+      <details><summary>Will I be ordained as a pastor or apostle after GSOM?<i aria-hidden="true"></i></summary><div class="ans"><p>No. There is no ordination service. The program ends with a <b>Graduation and Impartation Service</b>.</p></div></details>
+      <details><summary>What will I study?<i aria-hidden="true"></i></summary><div class="ans"><p>Five courses: Pneumatology, Leadership, Ministry, Self Discovery &amp; Personal Transformation, and Finance, with prayer, field outreach and preaching practice along the way.</p></div></details>
+    </div>
   </div>
 </section>
 
@@ -725,7 +815,8 @@ try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }cat
   }
 
   /* Reveals: only below-the-fold items start lowered, so the page is complete at rest */
-  var targets=document.querySelectorAll('.ark, .about-photo, .about-copy > *, .head, .course, .become-copy > *, .become-photo, .value, .mode-copy > *, .testi blockquote');
+  (function(){var q=document.getElementById('quote'); if(!q) return; if(!('IntersectionObserver' in window)){q.classList.add('on');return;} var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){q.classList.add('on');o.disconnect();}});},{threshold:.5}); o.observe(q);})();
+  var targets=document.querySelectorAll('.ark, .about-photo, .about-copy > *, .head, .why-head > *, .why-list li, .faq-head > *, .conviction blockquote, .course, .become-copy > *, .become-photo, .value, .mode-copy > *, .testi blockquote');
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting) return; e.target.classList.remove('pending'); io.unobserve(e.target); }); },{rootMargin:'0px 0px -10% 0px',threshold:.1});
     var vh=window.innerHeight;
